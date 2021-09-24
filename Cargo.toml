@@ -1,0 +1,18 @@
+[package]
+name = "hostfxr-sys"
+version = "0.1.0"
+description = "FFI bindings for hostfxr."
+readme = "README.md"
+repository = "https://github.com/OpenByteDev/hostfxr-syst"
+homepage = "https://github.com/OpenByteDev/hostfxr-sys"
+documentation = "https://docs.rs/hostfxr-sys"
+license = "MIT"
+authors = ["OpenByte <development.openbyte@gmail.com>"]
+edition = "2018"
+categories = ["external-ffi-bindings"]
+keywords = ["hostfxr", "dotnet", "bindings", "coreclr"]
+
+[dependencies]
+coreclr-hosting-shared = "0.1"
+dlopen = "0.1"
+dlopen_derive = "0.1"
