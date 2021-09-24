@@ -16,7 +16,7 @@ pub struct Hostfxr<'lib> {
     /// This function does not return until the application completes execution.
     /// It will shutdown CoreCLR after the application executes.
     /// If the application is successfully executed, this value will return the exit code of the application. Otherwise, it will return an error code indicating the failure.
-    hostfxr_main: Symbol<'lib, unsafe extern "C" fn(argc: i32, argv: *const *const char_t) -> i32>,
+    pub hostfxr_main: Symbol<'lib, unsafe extern "C" fn(argc: i32, argv: *const *const char_t) -> i32>,
 
     /// Run an application.
     ///
@@ -33,7 +33,7 @@ pub struct Hostfxr<'lib> {
     /// This function does not return until the application completes execution.
     /// It will shutdown CoreCLR after the application executes.
     /// If the application is successfully executed, this value will return the exit code of the application. Otherwise, it will return an error code indicating the failure.
-    hostfxr_main_startupinfo: Symbol<
+    pub hostfxr_main_startupinfo: Symbol<
         'lib,
         unsafe extern "C" fn(
             argc: i32,
@@ -44,7 +44,7 @@ pub struct Hostfxr<'lib> {
         ) -> i32,
     >,
 
-    hostfxr_main_bundle_startupinfo: Symbol<
+    pub hostfxr_main_bundle_startupinfo: Symbol<
         'lib,
         unsafe extern "C" fn(
             argc: i32,
@@ -79,7 +79,7 @@ pub struct Hostfxr<'lib> {
     /// If the hostfxr invokes functions in hostpolicy as part of its operation, the error writer
     /// will be propagated to hostpolicy for the duration of the call. This means that errors from
     /// both hostfxr and hostpolicy will be reporter through the same error writer.
-    hostfxr_set_error_writer: Symbol<
+    pub hostfxr_set_error_writer: Symbol<
         'lib,
         unsafe extern "C" fn(error_writer: hostfxr_error_writer_fn) -> hostfxr_error_writer_fn,
     >,
@@ -113,7 +113,7 @@ pub struct Hostfxr<'lib> {
     ///
     /// [`Success`]: coreclr_hosting_shared::StatusCode::Success
     /// [`HostInvalidState`]: coreclr_hosting_shared::StatusCode::HostInvalidState
-    hostfxr_initialize_for_dotnet_command_line: Symbol<
+    pub hostfxr_initialize_for_dotnet_command_line: Symbol<
         'lib,
         unsafe extern "C" fn(
             argc: i32,
@@ -161,7 +161,7 @@ pub struct Hostfxr<'lib> {
     /// [`Success_HostAlreadyInitialized`]: coreclr_hosting_shared::StatusCode::Success_HostAlreadyInitialized
     /// [`Success_DifferentRuntimeProperties`]: coreclr_hosting_shared::StatusCode::Success_DifferentRuntimeProperties
     /// [`CoreHostIncompatibleConfig`]: coreclr_hosting_shared::StatusCode::CoreHostIncompatibleConfig
-    hostfxr_initialize_for_runtime_config: Symbol<
+    pub hostfxr_initialize_for_runtime_config: Symbol<
         'lib,
         unsafe extern "C" fn(
             runtime_config_path: *const char_t,
@@ -195,7 +195,7 @@ pub struct Hostfxr<'lib> {
     ///
     /// [`hostfxr_set_runtime_property_value`]: struct.HostfxrLib.html#method.hostfxr_set_runtime_property_value
     /// [`hostfxr_close`]: struct.HostfxrLib.html#method.hostfxr_close
-    hostfxr_get_runtime_property_value: Symbol<
+    pub hostfxr_get_runtime_property_value: Symbol<
         'lib,
         unsafe extern "C" fn(
             host_context_handle: hostfxr_handle,
@@ -222,7 +222,7 @@ pub struct Hostfxr<'lib> {
     ///
     /// If the property already exists in the host context, it will be overwritten. If value is [`null`](core::ptr::null()), the
     /// property will be removed.
-    hostfxr_set_runtime_property_value: Symbol<
+    pub hostfxr_set_runtime_property_value: Symbol<
         'lib,
         unsafe extern "C" fn(
             host_context_handle: hostfxr_handle,
@@ -260,7 +260,7 @@ pub struct Hostfxr<'lib> {
     ///
     /// [`hostfxr_set_runtime_property_value`]: struct.HostfxrLib.html#hostfxr_set_runtime_property_value
     /// [`hostfxr_close`]: struct.HostfxrLib.html#method.hostfxr_closee
-    hostfxr_get_runtime_properties: Symbol<
+    pub hostfxr_get_runtime_properties: Symbol<
         'lib,
         unsafe extern "C" fn(
             host_context_handle: hostfxr_handle,
@@ -286,7 +286,7 @@ pub struct Hostfxr<'lib> {
     ///
     /// [`hostfxr_initialize_for_runtime_config`]: struct.HostfxrLib.html#method.hostfxr_initialize_for_runtime_config
     /// [`hostfxr_initialize_for_dotnet_command_line`]: struct.HostfxrLib.html#method.hostfxr_initialize_for_dotnet_command_line
-    hostfxr_run_app: Symbol<'lib, unsafe extern "C" fn(host_context_handle: hostfxr_handle) -> i32>,
+    pub hostfxr_run_app: Symbol<'lib, unsafe extern "C" fn(host_context_handle: hostfxr_handle) -> i32>,
 
     /// Gets a typed delegate from the currently loaded CoreCLR or from a newly created one.
     ///
@@ -313,7 +313,7 @@ pub struct Hostfxr<'lib> {
     /// [`hdt_get_function_pointer`]: hostfxr_delegate_type::hdt_get_function_pointer
     /// [`hostfxr_initialize_for_runtime_config`]: struct.HostfxrLib.html#method.hostfxr_initialize_for_runtime_config
     /// [`hostfxr_initialize_for_dotnet_command_line`]: struct.HostfxrLib.html#method.hostfxr_initialize_for_dotnet_command_line
-    hostfxr_get_runtime_delegate: Symbol<
+    pub hostfxr_get_runtime_delegate: Symbol<
         'lib,
         unsafe extern "C" fn(
             host_context_handle: hostfxr_handle,
@@ -330,5 +330,5 @@ pub struct Hostfxr<'lib> {
     ///
     /// # Return value:
     /// The error code result.
-    hostfxr_close: Symbol<'lib, unsafe extern "C" fn(host_context_handle: hostfxr_handle) -> i32>,
+    pub hostfxr_close: Symbol<'lib, unsafe extern "C" fn(host_context_handle: hostfxr_handle) -> i32>,
 }
