@@ -4,7 +4,6 @@ version = "0.1.1"
 description = "FFI bindings for hostfxr."
 readme = "README.md"
 repository = "https://github.com/OpenByteDev/hostfxr-syst"
-homepage = "https://github.com/OpenByteDev/hostfxr-sys"
 documentation = "https://docs.rs/hostfxr-sys"
 license = "MIT"
 authors = ["OpenByte <development.openbyte@gmail.com>"]
