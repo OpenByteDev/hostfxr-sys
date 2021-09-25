@@ -13,7 +13,7 @@
 /*!
 FFI bindings for [hostfxr](https://github.com/dotnet/runtime/blob/main/docs/design/features/host-components.md#components-of-the-hosting).
 
-# Related crates
+## Related crates
 - [nethost-sys](https://crates.io/crates/nethost-sys) - bindings for the nethost library.
 - [coreclr-hosting-shared](https://crates.io/crates/coreclr-hosting-shared) - shared bindings between this crate and [nethost-sys](https://crates.io/crates/nethost-sys).
 - [netcorehost](https://crates.io/crates/netcorehost) - rusty wrapper over the hostfxr and hostfxr libraries.
