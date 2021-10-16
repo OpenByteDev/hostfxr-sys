@@ -16,6 +16,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
+        os: ["windows-latest", "ubuntu-latest"]
         toolchain: ["stable", "nightly"]
         include:
           - os: ubuntu-latest
