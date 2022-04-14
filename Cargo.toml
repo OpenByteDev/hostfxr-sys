@@ -7,7 +7,7 @@ repository = "https://github.com/OpenByteDev/hostfxr-sys"
 documentation = "https://docs.rs/hostfxr-sys"
 license = "MIT"
 authors = ["OpenByte <development.openbyte@gmail.com>"]
-edition = "2018"
+edition = "2021"
 categories = ["external-ffi-bindings"]
 keywords = ["hostfxr", "dotnet", "bindings", "coreclr"]
 
