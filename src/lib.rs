@@ -30,7 +30,7 @@ Licensed under the MIT license ([LICENSE](https://github.com/OpenByteDev/hostfxr
 #[macro_use]
 extern crate dlopen_derive;
 
-pub use dlopen as dlopen;
+pub use dlopen;
 
 use core::{ffi::c_void, mem};
 use coreclr_hosting_shared::{char_t, size_t};

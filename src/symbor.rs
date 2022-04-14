@@ -16,7 +16,8 @@ pub struct Hostfxr<'lib> {
     /// This function does not return until the application completes execution.
     /// It will shutdown CoreCLR after the application executes.
     /// If the application is successfully executed, this value will return the exit code of the application. Otherwise, it will return an error code indicating the failure.
-    pub hostfxr_main: Symbol<'lib, unsafe extern "C" fn(argc: i32, argv: *const *const char_t) -> i32>,
+    pub hostfxr_main:
+        Symbol<'lib, unsafe extern "C" fn(argc: i32, argv: *const *const char_t) -> i32>,
 
     /// Run an application.
     ///
@@ -286,7 +287,8 @@ pub struct Hostfxr<'lib> {
     ///
     /// [`hostfxr_initialize_for_runtime_config`]: struct.HostfxrLib.html#method.hostfxr_initialize_for_runtime_config
     /// [`hostfxr_initialize_for_dotnet_command_line`]: struct.HostfxrLib.html#method.hostfxr_initialize_for_dotnet_command_line
-    pub hostfxr_run_app: Symbol<'lib, unsafe extern "C" fn(host_context_handle: hostfxr_handle) -> i32>,
+    pub hostfxr_run_app:
+        Symbol<'lib, unsafe extern "C" fn(host_context_handle: hostfxr_handle) -> i32>,
 
     /// Gets a typed delegate from the currently loaded CoreCLR or from a newly created one.
     ///
@@ -330,5 +332,6 @@ pub struct Hostfxr<'lib> {
     ///
     /// # Return value:
     /// The error code result.
-    pub hostfxr_close: Symbol<'lib, unsafe extern "C" fn(host_context_handle: hostfxr_handle) -> i32>,
+    pub hostfxr_close:
+        Symbol<'lib, unsafe extern "C" fn(host_context_handle: hostfxr_handle) -> i32>,
 }
