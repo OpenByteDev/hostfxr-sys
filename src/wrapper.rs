@@ -95,7 +95,7 @@ pub struct Hostfxr {
 
     #[cfg(all(feature = "netcore2_1", feature = "undocumented"))]
     #[cfg_attr(
-        feature = "doc-cfg",
+        all(feature = "doc-cfg", nightly),
         doc(cfg(feature = "netcore2_1", feature = "undocumented"))
     )]
     hostfxr_main_bundle_startupinfo: unsafe extern "C" fn(
