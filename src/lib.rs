@@ -53,7 +53,26 @@ pub enum hostfxr_delegate_type {
 }
 
 /// Error reporting function signature.
-pub type hostfxr_error_writer_fn = unsafe extern "C" fn(message: *const char_t);
+pub type hostfxr_error_writer_fn = extern "C" fn(message: *const char_t);
+
+#[repr(i32)]
+pub enum hostfxr_resolve_sdk2_flags_t {
+    disallow_prerelease = 0x1,
+}
+
+#[repr(i32)]
+pub enum hostfxr_resolve_sdk2_result_key_t {
+    resolved_sdk_dir = 0,
+    global_json_path = 1,
+}
+
+/// Result callback signature for `hostfxr_resolve_sdk2`.
+pub type hostfxr_resolve_sdk2_result_fn =
+    extern "C" fn(key: hostfxr_resolve_sdk2_result_key_t, value: *const char_t);
+
+/// Result callback signature for `hostfxr_get_available_sdks`.
+pub type hostfxr_get_available_sdks_result_fn =
+    extern "C" fn(sdk_count: i32, sdk_dirs: *const *const char_t);
 
 /// Handle to a hostfxr context.
 pub type hostfxr_handle = *const c_void;

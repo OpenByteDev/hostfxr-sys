@@ -2,7 +2,9 @@ use coreclr_hosting_shared::{char_t, size_t};
 use dlopen::wrapper::WrapperApi;
 
 use crate::{
-    hostfxr_delegate_type, hostfxr_error_writer_fn, hostfxr_handle, hostfxr_initialize_parameters,
+    hostfxr_delegate_type, hostfxr_error_writer_fn, hostfxr_get_available_sdks_result_fn,
+    hostfxr_handle, hostfxr_initialize_parameters, hostfxr_resolve_sdk2_flags_t,
+    hostfxr_resolve_sdk2_result_fn,
 };
 
 /// [`dlopen::wrapper`] abstraction for the hostfxr library.
@@ -17,6 +19,50 @@ pub struct Hostfxr {
     /// It will shutdown CoreCLR after the application executes.
     /// If the application is successfully executed, this value will return the exit code of the application. Otherwise, it will return an error code indicating the failure.
     hostfxr_main: unsafe extern "C" fn(argc: i32, argv: *const *const char_t) -> i32,
+
+    /// Determines the directory location of the SDK accounting for
+    /// `global.json` and multi-level lookup policy.
+    ///
+    /// Invoked via MSBuild SDK resolver to locate SDK props and targets
+    /// from an msbuild other than the one bundled by the CLI.
+    ///
+    /// # Arguments
+    ///  * `exe_dir`
+    ///      The main directory where SDKs are located in `sdk\[version]`
+    ///      sub-folders. Pass the directory of a dotnet executable to
+    ///      mimic how that executable would search in its own directory.
+    ///      It is also valid to pass nullptr or empty, in which case
+    ///      multi-level lookup can still search other locations if
+    ///      it has not been disabled by the user's environment.
+    ///
+    ///  * `working_dir`
+    ///      The directory where the search for `global.json` (which can
+    ///      control the resolved SDK version) starts and proceeds
+    ///      upwards.
+    ///
+    ///  * `buffer`
+    ///      The buffer where the resolved SDK path will be written.
+    ///
+    ///  * `buffer_size`
+    ///      The size of the buffer argument in [`char_t`] units.
+    ///
+    /// # Return value:
+    ///  * `<0` - Invalid argument
+    ///  * `0`  - SDK could not be found.
+    ///  * `>0` - The number of characters (including null terminator)
+    ///        required to store the located SDK.
+    ///
+    /// If resolution succeeds and the positive return value is less than
+    /// or equal to `buffer_size` (i.e. the the buffer is large enough),
+    /// then the resolved SDK path is copied to the buffer and null
+    /// terminated. Otherwise, no data is written to the buffer.
+    #[deprecated(note = "Use `hostfxr_resolve_sdk2` instead.")]
+    hostfxr_resolve_sdk: unsafe extern "C" fn(
+        exe_dir: *const char_t,
+        working_dir: *const char_t,
+        buffer: *mut char_t,
+        buffer_size: i32,
+    ) -> i32,
 
     /// Run an application.
     ///
@@ -48,6 +94,56 @@ pub struct Hostfxr {
         dotnet_root: *const char_t,
         app_path: *const char_t,
         bundle_header_offset: i64,
+    ) -> i32,
+
+    /// Determine the directory location of the SDK, accounting for `global.json` and multi-level lookup policy.
+    ///
+    /// # Arguments
+    ///  * `exe_dir` - main directory where SDKs are located in `sdk\[version]` sub-folders.
+    ///  * `working_dir` - directory where the search for `global.json` will start and proceed upwards
+    ///  * `flags` - flags that influence resolution:
+    ///         `disallow_prerelease` - do not allow resolution to return a pre-release SDK version unless a pre-release version was specified via `global.json`
+    ///  * `result` - callback invoked to return resolved values.
+    ///         The callback may be invoked more than once. Strings passed to the callback are valid only for the duration of the call.
+    ///
+    /// If resolution succeeds, result will be invoked with [`resolved_sdk_dir`](crate::hostfxr_resolve_sdk2_result_key_t::resolved_sdk_dir) key and the value will hold the path to the resolved SDK directory.
+    /// If resolution does not succeed, result will be invoked with [`resolved_sdk_dir`](crate::hostfxr_resolve_sdk2_result_key_t::resolved_sdk_dir) key and the value will be [`ptr::null()`](core::ptr::null).
+    ///
+    /// If `global.json` is used, result will be invoked with [`global_json_path`](crate::hostfxr_resolve_sdk2_result_key_t::global_json_path) key and the value will hold the path to `global.json`.
+    /// If there was no `global.json` found, or the contents of `global.json` did not impact resolution (e.g. no version specified), then result will not be invoked with [`global_json_path`](crate::hostfxr_resolve_sdk2_result_key_t::global_json_path) key.
+    hostfxr_resolve_sdk2: unsafe extern "C" fn(
+        exe_dir: *const char_t,
+        working_dir: *const char_t,
+        flags: hostfxr_resolve_sdk2_flags_t,
+        result: hostfxr_resolve_sdk2_result_fn,
+    ) -> i32,
+
+    /// Get the list of all available SDKs ordered by ascending version.
+    ///
+    /// # Arguments
+    ///  * `exe_dir` - path to the dotnet executable
+    ///  * `result` - callback invoked to return the list of SDKs by their directory paths.
+    ///             String array and its elements are valid only for the duration of the call.
+
+    /// Get the native search directories of the runtime based upon the specified app.
+    ///
+    /// # Arguments
+    ///  * `argc`,`argv` - command-line arguments
+    ///  * `buffer` - buffer to populate with the native search directories (including a null terminator).
+    ///  * `buffer_size` - size of `buffer` in [`char_t`] units
+    ///  * `required_buffer_size` - if buffer is too small, this will be populated with the minimum required buffer size (including a null terminator). Otherwise, this will be set to 0.
+    ///
+    /// The native search directories will be a list of paths separated by `PATH_SEPARATOR`, which is a semicolon (;) on Windows and a colon (:) otherwise.
+    ///
+    /// If `buffer_size` is less than the minimum required buffer size, this function will return [`HostApiBufferTooSmall`] and buffer will be unchanged.
+    ///
+    /// [`HostApiBufferTooSmall`]: coreclr_hosting_shared::StatusCode::HostApiBufferTooSmall
+    hostfxr_get_native_search_directories: unsafe extern "C" fn(
+        argc: i32,
+        argv: *const *const char_t,
+        buffer: *mut char_t,
+        buffer_size: i32,
+        required_buffer_size: *mut i32,
     ) -> i32,
 
     /// Sets a callback which is to be used to write errors to.
