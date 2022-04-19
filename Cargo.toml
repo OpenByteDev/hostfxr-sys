@@ -1,6 +1,6 @@
 [package]
 name = "hostfxr-sys"
-version = "0.1.4"
+version = "0.2.0"
 description = "FFI bindings for hostfxr."
 readme = "README.md"
 repository = "https://github.com/OpenByteDev/hostfxr-sys"
