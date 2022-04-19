@@ -66,8 +66,8 @@ pub type hostfxr_error_writer_fn = extern "C" fn(message: *const char_t);
 #[allow(non_upper_case_globals)]
 /// Flag constants for `hostfxr_resolve_sdk2`.
 pub mod hostfxr_resolve_sdk2_flags_t {
-    const none: i32 = 0x0;
-    const disallow_prerelease: i32 = 0x1;
+    pub const none: i32 = 0x0;
+    pub const disallow_prerelease: i32 = 0x1;
 }
 
 #[repr(i32)]
