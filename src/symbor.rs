@@ -19,7 +19,7 @@ pub struct Hostfxr<'lib> {
     /// It will shutdown CoreCLR after the application executes.
     /// If the application is successfully executed, this value will return the exit code of the application. Otherwise, it will return an error code indicating the failure.
     #[cfg(feature = "netcore1_0")]
-    #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore1_0")))]
+    #[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore1_0")))]
     pub hostfxr_main:
         Symbol<'lib, unsafe extern "C" fn(argc: i32, argv: *const *const char_t) -> i32>,
 
@@ -61,7 +61,7 @@ pub struct Hostfxr<'lib> {
     /// terminated. Otherwise, no data is written to the buffer.
     #[deprecated(note = "Use `hostfxr_resolve_sdk2` instead.")]
     #[cfg(feature = "netcore2_0")]
-    #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore2_0")))]
+    #[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore2_0")))]
     pub hostfxr_resolve_sdk: Symbol<
         'lib,
         unsafe extern "C" fn(
@@ -88,7 +88,7 @@ pub struct Hostfxr<'lib> {
     /// It will shutdown CoreCLR after the application executes.
     /// If the application is successfully executed, this value will return the exit code of the application. Otherwise, it will return an error code indicating the failure.
     #[cfg(feature = "netcore2_1")]
-    #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore2_1")))]
+    #[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore2_1")))]
     pub hostfxr_main_startupinfo: Symbol<
         'lib,
         unsafe extern "C" fn(
@@ -133,7 +133,7 @@ pub struct Hostfxr<'lib> {
     /// If `global.json` is used, result will be invoked with [`global_json_path`](crate::hostfxr_resolve_sdk2_result_key_t::global_json_path) key and the value will hold the path to `global.json`.
     /// If there was no `global.json` found, or the contents of `global.json` did not impact resolution (e.g. no version specified), then result will not be invoked with [`global_json_path`](crate::hostfxr_resolve_sdk2_result_key_t::global_json_path) key.
     #[cfg(feature = "netcore2_1")]
-    #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore2_1")))]
+    #[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore2_1")))]
     pub hostfxr_resolve_sdk2: Symbol<
         'lib,
         unsafe extern "C" fn(
@@ -151,7 +151,7 @@ pub struct Hostfxr<'lib> {
     ///  * `result` - callback invoked to return the list of SDKs by their directory paths.
     ///             String array and its elements are valid only for the duration of the call.
     #[cfg(feature = "netcore2_1")]
-    #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore2_1")))]
+    #[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore2_1")))]
     pub hostfxr_get_available_sdks: Symbol<
         'lib,
         unsafe extern "C" fn(
@@ -174,7 +174,7 @@ pub struct Hostfxr<'lib> {
     ///
     /// [`HostApiBufferTooSmall`]: coreclr_hosting_shared::StatusCode::HostApiBufferTooSmall
     #[cfg(feature = "netcore2_1")]
-    #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore2_1")))]
+    #[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore2_1")))]
     pub hostfxr_get_native_search_directories: Symbol<
         'lib,
         unsafe extern "C" fn(
@@ -210,7 +210,7 @@ pub struct Hostfxr<'lib> {
     /// will be propagated to hostpolicy for the duration of the call. This means that errors from
     /// both hostfxr and hostpolicy will be reporter through the same error writer.
     #[cfg(feature = "netcore3_0")]
-    #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore3_0")))]
+    #[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore3_0")))]
     pub hostfxr_set_error_writer: Symbol<
         'lib,
         unsafe extern "C" fn(error_writer: hostfxr_error_writer_fn) -> hostfxr_error_writer_fn,
@@ -246,7 +246,7 @@ pub struct Hostfxr<'lib> {
     /// [`Success`]: coreclr_hosting_shared::StatusCode::Success
     /// [`HostInvalidState`]: coreclr_hosting_shared::StatusCode::HostInvalidState
     #[cfg(feature = "netcore3_0")]
-    #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore3_0")))]
+    #[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore3_0")))]
     pub hostfxr_initialize_for_dotnet_command_line: Symbol<
         'lib,
         unsafe extern "C" fn(
@@ -296,7 +296,7 @@ pub struct Hostfxr<'lib> {
     /// [`Success_DifferentRuntimeProperties`]: coreclr_hosting_shared::StatusCode::Success_DifferentRuntimeProperties
     /// [`CoreHostIncompatibleConfig`]: coreclr_hosting_shared::StatusCode::CoreHostIncompatibleConfig
     #[cfg(feature = "netcore3_0")]
-    #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore3_0")))]
+    #[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore3_0")))]
     pub hostfxr_initialize_for_runtime_config: Symbol<
         'lib,
         unsafe extern "C" fn(
@@ -332,7 +332,7 @@ pub struct Hostfxr<'lib> {
     /// [`hostfxr_set_runtime_property_value`]: struct.HostfxrLib.html#method.hostfxr_set_runtime_property_value
     /// [`hostfxr_close`]: struct.HostfxrLib.html#method.hostfxr_close
     #[cfg(feature = "netcore3_0")]
-    #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore3_0")))]
+    #[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore3_0")))]
     pub hostfxr_get_runtime_property_value: Symbol<
         'lib,
         unsafe extern "C" fn(
@@ -361,7 +361,7 @@ pub struct Hostfxr<'lib> {
     /// If the property already exists in the host context, it will be overwritten. If value is [`null`](core::ptr::null()), the
     /// property will be removed.
     #[cfg(feature = "netcore3_0")]
-    #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore3_0")))]
+    #[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore3_0")))]
     pub hostfxr_set_runtime_property_value: Symbol<
         'lib,
         unsafe extern "C" fn(
@@ -401,7 +401,7 @@ pub struct Hostfxr<'lib> {
     /// [`hostfxr_set_runtime_property_value`]: struct.HostfxrLib.html#hostfxr_set_runtime_property_value
     /// [`hostfxr_close`]: struct.HostfxrLib.html#method.hostfxr_closee
     #[cfg(feature = "netcore3_0")]
-    #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore3_0")))]
+    #[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore3_0")))]
     pub hostfxr_get_runtime_properties: Symbol<
         'lib,
         unsafe extern "C" fn(
@@ -429,7 +429,7 @@ pub struct Hostfxr<'lib> {
     /// [`hostfxr_initialize_for_runtime_config`]: struct.HostfxrLib.html#method.hostfxr_initialize_for_runtime_config
     /// [`hostfxr_initialize_for_dotnet_command_line`]: struct.HostfxrLib.html#method.hostfxr_initialize_for_dotnet_command_line
     #[cfg(feature = "netcore3_0")]
-    #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore3_0")))]
+    #[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore3_0")))]
     pub hostfxr_run_app:
         Symbol<'lib, unsafe extern "C" fn(host_context_handle: hostfxr_handle) -> i32>,
 
@@ -459,7 +459,7 @@ pub struct Hostfxr<'lib> {
     /// [`hostfxr_initialize_for_runtime_config`]: struct.HostfxrLib.html#method.hostfxr_initialize_for_runtime_config
     /// [`hostfxr_initialize_for_dotnet_command_line`]: struct.HostfxrLib.html#method.hostfxr_initialize_for_dotnet_command_line
     #[cfg(feature = "netcore3_0")]
-    #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore3_0")))]
+    #[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore3_0")))]
     pub hostfxr_get_runtime_delegate: Symbol<
         'lib,
         unsafe extern "C" fn(
@@ -478,7 +478,7 @@ pub struct Hostfxr<'lib> {
     /// # Return value:
     /// The error code result.
     #[cfg(feature = "netcore3_0")]
-    #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore3_0")))]
+    #[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore3_0")))]
     pub hostfxr_close:
         Symbol<'lib, unsafe extern "C" fn(host_context_handle: hostfxr_handle) -> i32>,
 }
