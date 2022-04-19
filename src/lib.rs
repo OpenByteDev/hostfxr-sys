@@ -42,6 +42,13 @@ use coreclr_hosting_shared::{char_t, size_t};
 /// [`UnmanagedCallersOnlyAttribute`]: https://docs.microsoft.com/en-us/dotnet/api/system.runtime.interopservices.unmanagedcallersonlyattribute
 pub const UNMANAGED_CALLERS_ONLY_METHOD: *const char_t = usize::MAX as *const _;
 
+/// Seperator char used to sepeate a list of paths in string.
+#[cfg(windows)]
+pub const PATH_SEPARATOR: char_t = b';' as char_t;
+/// Seperator char used to sepeate a list of paths in string.
+#[cfg(not(windows))]
+pub const PATH_SEPARATOR: char_t = b':' as char_t;
+
 #[repr(i32)]
 pub enum hostfxr_delegate_type {
     hdt_com_activation = 0,
