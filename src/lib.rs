@@ -9,6 +9,7 @@
     non_camel_case_types,
     dead_code
 )]
+#![cfg_attr(feature = "doc-cfg", feature(doc_cfg))]
 
 /*!
 FFI bindings for [hostfxr](https://github.com/dotnet/runtime/blob/main/docs/design/features/host-components.md#components-of-the-hosting).

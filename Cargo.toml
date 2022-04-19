@@ -15,3 +15,12 @@ keywords = ["hostfxr", "dotnet", "bindings", "coreclr"]
 coreclr-hosting-shared = "0.1"
 dlopen = "0.1"
 dlopen_derive = "0.1"
+
+[features]
+default = ["netcore3_0"]
+netcore1_0 = []
+netcore2_0 = ["netcore1_0"]
+netcore2_1 = ["netcore2_0"]
+netcore3_0 = ["netcore2_1"]
+undocumented = []
+doc-cfg = []
