@@ -3,7 +3,7 @@ use dlopen::symbor::{SymBorApi, Symbol};
 
 use crate::{
     hostfxr_delegate_type, hostfxr_error_writer_fn, hostfxr_get_available_sdks_result_fn,
-    hostfxr_handle, hostfxr_initialize_parameters, hostfxr_resolve_sdk2_flags_t,
+    hostfxr_handle, hostfxr_initialize_parameters,
     hostfxr_resolve_sdk2_result_fn,
 };
 
@@ -139,7 +139,7 @@ pub struct Hostfxr<'lib> {
         unsafe extern "C" fn(
             exe_dir: *const char_t,
             working_dir: *const char_t,
-            flags: hostfxr_resolve_sdk2_flags_t,
+            flags: i32,
             result: hostfxr_resolve_sdk2_result_fn,
         ) -> i32,
     >,
