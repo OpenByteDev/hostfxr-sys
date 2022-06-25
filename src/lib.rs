@@ -42,10 +42,10 @@ use coreclr_hosting_shared::{char_t, size_t};
 /// [`UnmanagedCallersOnlyAttribute`]: https://docs.microsoft.com/en-us/dotnet/api/system.runtime.interopservices.unmanagedcallersonlyattribute
 pub const UNMANAGED_CALLERS_ONLY_METHOD: *const char_t = usize::MAX as *const _;
 
-/// Seperator char used to sepeate a list of paths in string.
+/// Seperator char used to seperate a list of paths in a string.
 #[cfg(windows)]
-/// Seperator char used to sepeate a list of paths in string.
 pub const PATH_LIST_SEPARATOR: char_t = b';' as char_t;
+/// Seperator char used to seperate a list of paths in a string.
 #[cfg(not(windows))]
 pub const PATH_LIST_SEPARATOR: char_t = b':' as char_t;
 
