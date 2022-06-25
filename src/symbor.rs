@@ -168,12 +168,12 @@ pub struct Hostfxr<'lib> {
     ///  * `buffer_size` - size of `buffer` in [`char_t`] units
     ///  * `required_buffer_size` - if buffer is too small, this will be populated with the minimum required buffer size (including a null terminator). Otherwise, this will be set to 0.
     ///
-    /// The native search directories will be a list of paths separated by [`PATH_SEPARATOR`], which is a semicolon (;) on Windows and a colon (:) otherwise.
+    /// The native search directories will be a list of paths separated by [`PATH_LIST_SEPARATOR`], which is a semicolon (;) on Windows and a colon (:) otherwise.
     ///
     /// If `buffer_size` is less than the minimum required buffer size, this function will return [`HostApiBufferTooSmall`] and buffer will be unchanged.
     ///
     /// [`HostApiBufferTooSmall`]: coreclr_hosting_shared::StatusCode::HostApiBufferTooSmall
-    /// [`PATH_SEPARATOR`]: crate::PATH_SEPARATOR
+    /// [`PATH_LIST_SEPARATOR`]: crate::PATH_LIST_SEPARATOR
     #[cfg(feature = "netcore2_1")]
     #[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore2_1")))]
     pub hostfxr_get_native_search_directories: Symbol<

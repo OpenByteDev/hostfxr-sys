@@ -44,10 +44,10 @@ pub const UNMANAGED_CALLERS_ONLY_METHOD: *const char_t = usize::MAX as *const _;
 
 /// Seperator char used to sepeate a list of paths in string.
 #[cfg(windows)]
-pub const PATH_SEPARATOR: char_t = b';' as char_t;
 /// Seperator char used to sepeate a list of paths in string.
+pub const PATH_LIST_SEPARATOR: char_t = b';' as char_t;
 #[cfg(not(windows))]
-pub const PATH_SEPARATOR: char_t = b':' as char_t;
+pub const PATH_LIST_SEPARATOR: char_t = b':' as char_t;
 
 #[repr(i32)]
 pub enum hostfxr_delegate_type {
