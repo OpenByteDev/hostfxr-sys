@@ -10,6 +10,10 @@ use crate::{
 /// [`dlopen::symbor`] abstraction for the hostfxr library.
 #[derive(SymBorApi)]
 pub struct Hostfxr<'lib> {
+    // ensures that 'lib is used if not other
+    #[cfg(not(feature = "netcore1_0"))]
+    _dummy: Option<Symbol<'lib, fn()>>,
+
     /// Run an application.
     ///
     /// # Arguments
