@@ -28,10 +28,7 @@ FFI bindings for [hostfxr](https://github.com/dotnet/runtime/blob/main/docs/desi
 Licensed under the MIT license ([LICENSE](https://github.com/OpenByteDev/hostfxr-sys/blob/master/LICENSE) or <http://opensource.org/licenses/MIT>)
 */
 
-#[macro_use]
-extern crate dlopen_derive;
-
-pub use dlopen;
+pub use dlopen2;
 
 use core::{ffi::c_void, mem};
 use coreclr_hosting_shared::{char_t, size_t};
@@ -244,8 +241,8 @@ derive_apis! {
 }
 */
 
-/// [`dlopen::symbor`] abstraction for the hostfxr library.
+/// [`dlopen2::symbor`] abstraction for the hostfxr library.
 pub mod symbor;
 
-/// [`dlopen::wrapper`] abstraction for the  hostfxr library.
+/// [`dlopen2::wrapper`] abstraction for the hostfxr library.
 pub mod wrapper;

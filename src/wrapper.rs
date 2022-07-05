@@ -1,5 +1,5 @@
 use coreclr_hosting_shared::{char_t, size_t};
-use dlopen::wrapper::WrapperApi;
+use dlopen2::wrapper::WrapperApi;
 
 use crate::{
     hostfxr_delegate_type, hostfxr_error_writer_fn, hostfxr_get_available_sdks_result_fn,
@@ -7,7 +7,7 @@ use crate::{
     hostfxr_resolve_sdk2_result_fn,
 };
 
-/// [`dlopen::wrapper`] abstraction for the hostfxr library.
+/// [`dlopen2::wrapper`] abstraction for the hostfxr library.
 #[derive(WrapperApi)]
 pub struct Hostfxr {
     /// Run an application.

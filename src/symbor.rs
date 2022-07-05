@@ -1,5 +1,5 @@
 use coreclr_hosting_shared::{char_t, size_t};
-use dlopen::symbor::{SymBorApi, Symbol};
+use dlopen2::symbor::{SymBorApi, Symbol};
 
 use crate::{
     hostfxr_delegate_type, hostfxr_error_writer_fn, hostfxr_get_available_sdks_result_fn,
@@ -7,7 +7,7 @@ use crate::{
     hostfxr_resolve_sdk2_result_fn,
 };
 
-/// [`dlopen::symbor`] abstraction for the hostfxr library.
+/// [`dlopen2::symbor`] abstraction for the hostfxr library.
 #[derive(SymBorApi)]
 pub struct Hostfxr<'lib> {
     // ensures that 'lib is used if not other
