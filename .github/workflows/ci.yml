@@ -30,9 +30,8 @@ jobs:
       uses: actions-rs/toolchain@v1
       with:
           target: ${{ matrix.target }}
-          profile: minimal
           toolchain: ${{ matrix.toolchain }}
-          components: clippy
+          components: clippy, rustfmt
     - name: Build
       run: cargo build --target ${{ matrix.target }} --all-features
     - name: Generate documentation
