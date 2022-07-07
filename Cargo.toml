@@ -13,7 +13,7 @@ keywords = ["hostfxr", "dotnet", "bindings", "coreclr"]
 
 [dependencies]
 coreclr-hosting-shared = "0.1"
-dlopen2 = "0.3"
+dlopen2 = "0.4"
 
 [features]
 default = ["netcore3_0"]
