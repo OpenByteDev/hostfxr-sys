@@ -31,7 +31,7 @@ jobs:
       with:
           target: ${{ matrix.target }}
           toolchain: ${{ matrix.toolchain }}
-          components: clippy, rustfmt
+          override: true
     - name: Build
       run: cargo build --target ${{ matrix.target }} --all-features
     - name: Generate documentation
