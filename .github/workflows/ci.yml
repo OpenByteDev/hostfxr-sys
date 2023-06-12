@@ -34,7 +34,7 @@ jobs:
           components: clippy
           override: true
     - name: Build
-      run: cargo build --target ${{ matrix.target }}  ${{ matrix.toolchain == "nightly" &&  "--all-features" || "--features latest" }}
+      run: cargo build --target ${{ matrix.target }}  ${{ matrix.toolchain == 'nightly' &&  '--all-features' || '--features latest' }}
     - name: Generate documentation
       run: cargo doc --all-features
     - name: Clippy check
