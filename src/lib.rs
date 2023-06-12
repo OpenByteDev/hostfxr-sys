@@ -58,13 +58,16 @@ pub enum hostfxr_delegate_type {
     hdt_load_in_memory_assembly = 1,
     /// WinRT activation entry-point
     #[cfg(all(feature = "netcore3_0", not(feature = "net5_0")))]
-    #[cfg_attr(feature = "doc-cfg", doc(cfg(all(feature = "netcore3_0", not(feature = "net5_0")))))]
+    #[cfg_attr(
+        feature = "doc-cfg",
+        doc(cfg(all(feature = "netcore3_0", not(feature = "net5_0"))))
+    )]
     hdt_winrt_activation = 2,
     hdt_com_register = 3,
     hdt_com_unregister = 4,
     /// Entry point which loads an assembly (with dependencies) and returns a function pointer for a specified static method.
     hdt_load_assembly_and_get_function_pointer = 5,
-    /// Entry-point which finds a managed method and returns a function pointer to it. 
+    /// Entry-point which finds a managed method and returns a function pointer to it.
     #[cfg(feature = "net5_0")]
     #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "net5_0")))]
     hdt_get_function_pointer = 6,
@@ -152,7 +155,7 @@ pub type load_assembly_and_get_function_pointer_fn = unsafe extern "system" fn(
 ///
 /// Calling this function will find the specified type in the default load context, locate the required method on it and return a native function pointer to that method.
 /// The method's signature can be specified via the delegate type name.
-/// 
+///
 /// # Arguments
 ///  * `type_name`:
 ///     Assembly qualified type name
@@ -191,7 +194,7 @@ pub type component_entry_point_fn = unsafe extern "system" fn(*const c_void, siz
 ///
 /// Calling this function will load the specified assembly in the default load context.
 /// It uses AssemblyDependencyResolver to register additional dependency resolution for the load context.
-/// 
+///
 /// # Arguments
 ///  * `assembly_path`:
 ///     Path to the assembly to load - requirements match the assemblyPath parameter of [`AssemblyLoadContext.LoadFromAssemblyPath`].
@@ -210,7 +213,7 @@ pub type component_entry_point_fn = unsafe extern "system" fn(*const c_void, siz
 pub type load_assembly_fn = unsafe extern "system" fn(
     assembly_path: *const char_t,
     load_context: *const c_void,
-    reserved: *const c_void
+    reserved: *const c_void,
 ) -> i32;
 
 /// Signature of delegate returned by [`hostfxr_get_runtime_delegate`] for type [`hdt_load_assembly_bytes`]
@@ -219,7 +222,7 @@ pub type load_assembly_fn = unsafe extern "system" fn(
 /// It does not provide a mechanism for registering additional dependency resolution, as mechanisms like `.deps.json` and [`AssemblyDependencyResolver`] are file-based.
 /// Dependencies can be pre-loaded (for example, via a previous call to this function) or the specified assembly can explicitly register its own resolution logic (for example, via the [`AssemblyLoadContext.Resolving`] event).
 /// It uses [`AssemblyDependencyResolver`] to register additional dependency resolution for the load context.
-/// 
+///
 /// # Arguments
 ///  * `assembly_path`:
 ///     Path to the assembly to load - requirements match the assemblyPath parameter of [`AssemblyLoadContext.LoadFromAssemblyPath`].
@@ -240,7 +243,7 @@ pub type load_assembly_fn = unsafe extern "system" fn(
 pub type load_assembly_bytes_fn = unsafe extern "system" fn(
     assembly_path: *const char_t,
     load_context: *const c_void,
-    reserved: *const c_void
+    reserved: *const c_void,
 ) -> i32;
 
 /// A structure that stores parameters which are common to all forms of initialization.
