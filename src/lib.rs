@@ -51,15 +51,20 @@ pub const PATH_LIST_SEPARATOR: char_t = b':' as char_t;
 #[cfg(feature = "netcore3_0")]
 #[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore3_0")))]
 #[repr(i32)]
+// Enum representing the type of runtime functionality requested with `hostfxr_get_runtime_delegate`.
 pub enum hostfxr_delegate_type {
     hdt_com_activation = 0,
+    /// IJW entry-point
     hdt_load_in_memory_assembly = 1,
+    /// WinRT activation entry-point
     #[cfg(all(feature = "netcore3_0", not(feature = "net5_0")))]
     #[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(all(feature = "netcore3_0", not(feature = "net5_0")))))]
     hdt_winrt_activation = 2,
     hdt_com_register = 3,
     hdt_com_unregister = 4,
+    /// Entry point which loads an assembly (with dependencies) and returns a function pointer for a specified static method.
     hdt_load_assembly_and_get_function_pointer = 5,
+    /// Entry-point which finds a managed method and returns a function pointer to it. 
     #[cfg(feature = "net5_0")]
     #[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "net5_0")))]
     hdt_get_function_pointer = 6,
@@ -120,7 +125,7 @@ pub type hostfxr_handle = *const c_void;
 ///  * `delegate`:
 ///     Pointer where to store the function pointer result
 ///
-/// [`hostfxr_get_runtime_delegate`]: struct.HostfxrLib.html#method.hostfxr_get_runtime_delegate
+/// [`hostfxr_get_runtime_delegate`]: wrapper/struct.Hostfxr.html#method.hostfxr_get_runtime_delegate
 /// [`hdt_load_assembly_and_get_function_pointer`]: hostfxr_delegate_type::`hdt_load_assembly_and_get_function_pointer
 /// [`UNMANAGED_CALLERS_ONLY_METHOD`]: UNMANAGED_CALLERS_ONLY_METHOD
 /// [`UnmanagedCallersOnlyAttribute`]: https://docs.microsoft.com/en-us/dotnet/api/system.runtime.interopservices.unmanagedcallersonlyattribute
@@ -137,6 +142,9 @@ pub type load_assembly_and_get_function_pointer_fn = unsafe extern "system" fn(
 
 /// Signature of delegate returned by [`hostfxr_get_runtime_delegate`] for type [`hdt_get_function_pointer`]
 ///
+/// Calling this function will find the specified type in the default load context, locate the required method on it and return a native function pointer to that method.
+/// The method's signature can be specified via the delegate type name.
+/// 
 /// # Arguments
 ///  * `type_name`:
 ///     Assembly qualified type name
@@ -152,7 +160,7 @@ pub type load_assembly_and_get_function_pointer_fn = unsafe extern "system" fn(
 ///     Pointer where to store the function pointer result
 ///
 /// [`hdt_get_function_pointer`]: hostfxr_delegate_type::hdt_get_function_pointer
-/// [`hostfxr_get_runtime_delegate`]: struct.HostfxrLib.html#method.hostfxr_get_runtime_delegate
+/// [`hostfxr_get_runtime_delegate`]: wrapper/struct.Hostfxr.html#method.hostfxr_get_runtime_delegate
 /// [`UNMANAGED_CALLERS_ONLY_METHOD`]: crate::UNMANAGED_CALLERS_ONLY_METHOD
 /// [`UnmanagedCallersOnlyAttribute`]: https://docs.microsoft.com/en-us/dotnet/api/system.runtime.interopservices.unmanagedcallersonlyattribute
 #[cfg(feature = "net5_0")]
