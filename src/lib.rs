@@ -37,6 +37,8 @@ use coreclr_hosting_shared::{char_t, size_t};
 /// This means that the name alone can identify the target method.
 ///
 /// [`UnmanagedCallersOnlyAttribute`]: https://docs.microsoft.com/en-us/dotnet/api/system.runtime.interopservices.unmanagedcallersonlyattribute
+#[cfg(feature = "net5_0")]
+#[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "net5_0")))]
 pub const UNMANAGED_CALLERS_ONLY_METHOD: *const char_t = usize::MAX as *const _;
 
 /// Seperator char used to seperate a list of paths in a string.
@@ -46,27 +48,39 @@ pub const PATH_LIST_SEPARATOR: char_t = b';' as char_t;
 #[cfg(not(windows))]
 pub const PATH_LIST_SEPARATOR: char_t = b':' as char_t;
 
+#[cfg(feature = "netcore3_0")]
+#[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore3_0")))]
 #[repr(i32)]
 pub enum hostfxr_delegate_type {
     hdt_com_activation = 0,
     hdt_load_in_memory_assembly = 1,
+    #[cfg(all(feature = "netcore3_0", not(feature = "net5_0")))]
+    #[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(all(feature = "netcore3_0", not(feature = "net5_0")))))]
     hdt_winrt_activation = 2,
     hdt_com_register = 3,
     hdt_com_unregister = 4,
     hdt_load_assembly_and_get_function_pointer = 5,
+    #[cfg(feature = "net5_0")]
+    #[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "net5_0")))]
     hdt_get_function_pointer = 6,
 }
 
 /// Error reporting function signature.
+#[cfg(feature = "netcore3_0")]
+#[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore3_0")))]
 pub type hostfxr_error_writer_fn = extern "C" fn(message: *const char_t);
 
-#[allow(non_upper_case_globals)]
 /// Flag constants for `hostfxr_resolve_sdk2`.
+#[allow(non_upper_case_globals)]
+#[cfg(feature = "netcore2_1")]
+#[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore2_1")))]
 pub mod hostfxr_resolve_sdk2_flags_t {
     pub const none: i32 = 0x0;
     pub const disallow_prerelease: i32 = 0x1;
 }
 
+#[cfg(feature = "netcore2_1")]
+#[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore2_1")))]
 #[repr(i32)]
 pub enum hostfxr_resolve_sdk2_result_key_t {
     resolved_sdk_dir = 0,
@@ -74,10 +88,14 @@ pub enum hostfxr_resolve_sdk2_result_key_t {
 }
 
 /// Result callback signature for `hostfxr_resolve_sdk2`.
+#[cfg(feature = "netcore2_1")]
+#[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore2_1")))]
 pub type hostfxr_resolve_sdk2_result_fn =
     extern "C" fn(key: hostfxr_resolve_sdk2_result_key_t, value: *const char_t);
 
 /// Result callback signature for `hostfxr_get_available_sdks`.
+#[cfg(feature = "netcore2_1")]
+#[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore2_1")))]
 pub type hostfxr_get_available_sdks_result_fn =
     extern "C" fn(sdk_count: i32, sdk_dirs: *const *const char_t);
 
@@ -106,6 +124,8 @@ pub type hostfxr_handle = *const c_void;
 /// [`hdt_load_assembly_and_get_function_pointer`]: hostfxr_delegate_type::`hdt_load_assembly_and_get_function_pointer
 /// [`UNMANAGED_CALLERS_ONLY_METHOD`]: UNMANAGED_CALLERS_ONLY_METHOD
 /// [`UnmanagedCallersOnlyAttribute`]: https://docs.microsoft.com/en-us/dotnet/api/system.runtime.interopservices.unmanagedcallersonlyattribute
+#[cfg(feature = "netcore3_0")]
+#[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore3_0")))]
 pub type load_assembly_and_get_function_pointer_fn = unsafe extern "system" fn(
     assembly_path: *const char_t,
     type_name: *const char_t,
@@ -135,6 +155,8 @@ pub type load_assembly_and_get_function_pointer_fn = unsafe extern "system" fn(
 /// [`hostfxr_get_runtime_delegate`]: struct.HostfxrLib.html#method.hostfxr_get_runtime_delegate
 /// [`UNMANAGED_CALLERS_ONLY_METHOD`]: crate::UNMANAGED_CALLERS_ONLY_METHOD
 /// [`UnmanagedCallersOnlyAttribute`]: https://docs.microsoft.com/en-us/dotnet/api/system.runtime.interopservices.unmanagedcallersonlyattribute
+#[cfg(feature = "net5_0")]
+#[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "net5_0")))]
 pub type get_function_pointer_fn = unsafe extern "system" fn(
     type_name: *const char_t,
     method_name: *const char_t,
@@ -145,6 +167,8 @@ pub type get_function_pointer_fn = unsafe extern "system" fn(
 ) -> i32;
 
 /// Signature of delegate returned by [`load_assembly_and_get_function_pointer_fn`] when `delegate_type_name == null` (default)
+#[cfg(feature = "netcore3_0")]
+#[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore3_0")))]
 pub type component_entry_point_fn = unsafe extern "system" fn(*const c_void, size_t) -> i32;
 
 /// A structure that stores parameters which are common to all forms of initialization.
