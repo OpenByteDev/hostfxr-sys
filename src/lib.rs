@@ -68,6 +68,14 @@ pub enum hostfxr_delegate_type {
     #[cfg(feature = "net5_0")]
     #[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "net5_0")))]
     hdt_get_function_pointer = 6,
+    /// Entry-point which loads an assembly by its path.
+    #[cfg(feature = "net8_0")]
+    #[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "net8_0")))]
+    hdt_load_assembly = 7,
+    /// Entry-point which loads an assembly from a byte array.
+    #[cfg(feature = "net8_0")]
+    #[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "net8_0")))]
+    hdt_load_assembly_bytes = 8,
 }
 
 /// Error reporting function signature.
@@ -178,6 +186,62 @@ pub type get_function_pointer_fn = unsafe extern "system" fn(
 #[cfg(feature = "netcore3_0")]
 #[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore3_0")))]
 pub type component_entry_point_fn = unsafe extern "system" fn(*const c_void, size_t) -> i32;
+
+/// Signature of delegate returned by [`hostfxr_get_runtime_delegate`] for type [`hdt_load_assembly`].
+///
+/// Calling this function will load the specified assembly in the default load context.
+/// It uses AssemblyDependencyResolver to register additional dependency resolution for the load context.
+/// 
+/// # Arguments
+///  * `assembly_path`:
+///     Path to the assembly to load - requirements match the assemblyPath parameter of [`AssemblyLoadContext.LoadFromAssemblyPath`].
+///     This path will also be used for dependency resolution via any `.deps.json` corresponding to the assembly.
+///  * `load_context`:
+///     The load context that will be used to load the assembly.
+///     For .NET 8 this parameter must be [`null`](core::ptr::null()) and the API will only load the assembly in the default load context.
+///  * `reserved`:
+///     Parameter reserved for future extensibility, currently unused and must be [`null`](core::ptr::null()).
+///
+/// [`hdt_load_assembly`]: hostfxr_delegate_type::hdt_load_assembly
+/// [`hostfxr_get_runtime_delegate`]: wrapper/struct.Hostfxr.html#method.hostfxr_get_runtime_delegate
+/// [`AssemblyLoadContext.LoadFromAssembly`]: https://learn.microsoft.com/en-us/dotnet/api/system.runtime.loader.assemblyloadcontext.loadfromassemblypath
+#[cfg(feature = "net8_0")]
+#[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "net8_0")))]
+pub type load_assembly_fn = unsafe extern "system" fn(
+    assembly_path: *const char_t,
+    load_context: *const c_void,
+    reserved: *const c_void
+) -> i32;
+
+/// Signature of delegate returned by [`hostfxr_get_runtime_delegate`] for type [`hdt_load_assembly_bytes`]
+///
+/// Calling this function will load the specified assembly in the default load context.
+/// It does not provide a mechanism for registering additional dependency resolution, as mechanisms like `.deps.json` and [`AssemblyDependencyResolver`] are file-based.
+/// Dependencies can be pre-loaded (for example, via a previous call to this function) or the specified assembly can explicitly register its own resolution logic (for example, via the [`AssemblyLoadContext.Resolving`] event).
+/// It uses [`AssemblyDependencyResolver`] to register additional dependency resolution for the load context.
+/// 
+/// # Arguments
+///  * `assembly_path`:
+///     Path to the assembly to load - requirements match the assemblyPath parameter of [`AssemblyLoadContext.LoadFromAssemblyPath`].
+///     This path will also be used for dependency resolution via any `.deps.json` corresponding to the assembly.
+///  * `load_context`:
+///     The load context that will be used to load the assembly.
+///     For .NET 8 this parameter must be [`null`](core::ptr::null()) and the API will only load the assembly in the default load context.
+///  * `reserved`:
+///     Parameter reserved for future extensibility, currently unused and must be [`null`](core::ptr::null()).
+///
+/// [`hdt_load_assembly_bytes`]: hostfxr_delegate_type::hdt_load_assembly_bytes
+/// [`hostfxr_get_runtime_delegate`]: wrapper/struct.Hostfxr.html#method.hostfxr_get_runtime_delegate
+/// [`AssemblyDependencyResolver`]: https://learn.microsoft.com/en-us/dotnet/api/system.runtime.loader.assemblydependencyresolver
+/// [`AssemblyLoadContext`]: https://learn.microsoft.com/en-us/dotnet/api/system.runtime.loader.assemblyloadcontext
+/// [`AssemblyLoadContext.Resolving`]: https://learn.microsoft.com/en-us/dotnet/api/system.runtime.loader.assemblyloadcontext.resolving?view=net-7.0
+#[cfg(feature = "net8_0")]
+#[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "net8_0")))]
+pub type load_assembly_bytes_fn = unsafe extern "system" fn(
+    assembly_path: *const char_t,
+    load_context: *const c_void,
+    reserved: *const c_void
+) -> i32;
 
 /// A structure that stores parameters which are common to all forms of initialization.
 #[repr(C)]

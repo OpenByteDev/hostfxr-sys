@@ -16,10 +16,14 @@ coreclr-hosting-shared = "0.1"
 dlopen2 = "0.5"
 
 [features]
-default = ["netcore3_0"]
+default = ["net6_0"]
 netcore1_0 = []
 netcore2_0 = ["netcore1_0"]
 netcore2_1 = ["netcore2_0"]
 netcore3_0 = ["netcore2_1"]
+net5_0 = ["netcore3_0"]
+net6_0 = ["net5_0"]
+net7_0 = ["net6_0"]
+net8_0 = ["net7_0"]
 undocumented = []
 doc-cfg = []
