@@ -36,9 +36,9 @@ jobs:
     - name: Build
       run: cargo build --target ${{ matrix.target }}  ${{ matrix.toolchain == 'nightly' &&  '--all-features' || '--features latest' }}
     - name: Generate documentation
-      run: cargo doc --all-features
+      run: cargo doc ${{ matrix.toolchain == 'nightly' &&  '--all-features' || '--features latest' }}
     - name: Clippy check
       uses: actions-rs/clippy-check@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        args: --all-features
+        args: ${{ matrix.toolchain == 'nightly' &&  '--all-features' || '--features latest' }}
