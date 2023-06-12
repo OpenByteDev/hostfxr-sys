@@ -9,7 +9,7 @@
     non_camel_case_types,
     dead_code
 )]
-#![cfg_attr(all(feature = "doc-cfg", nightly), feature(doc_cfg))]
+#![cfg_attr(feature = "doc-cfg", feature(doc_cfg))]
 
 /*!
 FFI bindings for [hostfxr](https://github.com/dotnet/runtime/blob/main/docs/design/features/host-components.md#components-of-the-hosting).
@@ -38,7 +38,7 @@ use coreclr_hosting_shared::{char_t, size_t};
 ///
 /// [`UnmanagedCallersOnlyAttribute`]: https://docs.microsoft.com/en-us/dotnet/api/system.runtime.interopservices.unmanagedcallersonlyattribute
 #[cfg(feature = "net5_0")]
-#[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "net5_0")))]
+#[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "net5_0")))]
 pub const UNMANAGED_CALLERS_ONLY_METHOD: *const char_t = usize::MAX as *const _;
 
 /// Seperator char used to seperate a list of paths in a string.
@@ -49,7 +49,7 @@ pub const PATH_LIST_SEPARATOR: char_t = b';' as char_t;
 pub const PATH_LIST_SEPARATOR: char_t = b':' as char_t;
 
 #[cfg(feature = "netcore3_0")]
-#[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore3_0")))]
+#[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore3_0")))]
 #[repr(i32)]
 // Enum representing the type of runtime functionality requested with `hostfxr_get_runtime_delegate`.
 pub enum hostfxr_delegate_type {
@@ -58,7 +58,7 @@ pub enum hostfxr_delegate_type {
     hdt_load_in_memory_assembly = 1,
     /// WinRT activation entry-point
     #[cfg(all(feature = "netcore3_0", not(feature = "net5_0")))]
-    #[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(all(feature = "netcore3_0", not(feature = "net5_0")))))]
+    #[cfg_attr(feature = "doc-cfg", doc(cfg(all(feature = "netcore3_0", not(feature = "net5_0")))))]
     hdt_winrt_activation = 2,
     hdt_com_register = 3,
     hdt_com_unregister = 4,
@@ -66,34 +66,34 @@ pub enum hostfxr_delegate_type {
     hdt_load_assembly_and_get_function_pointer = 5,
     /// Entry-point which finds a managed method and returns a function pointer to it. 
     #[cfg(feature = "net5_0")]
-    #[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "net5_0")))]
+    #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "net5_0")))]
     hdt_get_function_pointer = 6,
     /// Entry-point which loads an assembly by its path.
     #[cfg(feature = "net8_0")]
-    #[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "net8_0")))]
+    #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "net8_0")))]
     hdt_load_assembly = 7,
     /// Entry-point which loads an assembly from a byte array.
     #[cfg(feature = "net8_0")]
-    #[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "net8_0")))]
+    #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "net8_0")))]
     hdt_load_assembly_bytes = 8,
 }
 
 /// Error reporting function signature.
 #[cfg(feature = "netcore3_0")]
-#[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore3_0")))]
+#[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore3_0")))]
 pub type hostfxr_error_writer_fn = extern "C" fn(message: *const char_t);
 
 /// Flag constants for `hostfxr_resolve_sdk2`.
 #[allow(non_upper_case_globals)]
 #[cfg(feature = "netcore2_1")]
-#[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore2_1")))]
+#[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore2_1")))]
 pub mod hostfxr_resolve_sdk2_flags_t {
     pub const none: i32 = 0x0;
     pub const disallow_prerelease: i32 = 0x1;
 }
 
 #[cfg(feature = "netcore2_1")]
-#[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore2_1")))]
+#[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore2_1")))]
 #[repr(i32)]
 pub enum hostfxr_resolve_sdk2_result_key_t {
     resolved_sdk_dir = 0,
@@ -102,13 +102,13 @@ pub enum hostfxr_resolve_sdk2_result_key_t {
 
 /// Result callback signature for `hostfxr_resolve_sdk2`.
 #[cfg(feature = "netcore2_1")]
-#[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore2_1")))]
+#[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore2_1")))]
 pub type hostfxr_resolve_sdk2_result_fn =
     extern "C" fn(key: hostfxr_resolve_sdk2_result_key_t, value: *const char_t);
 
 /// Result callback signature for `hostfxr_get_available_sdks`.
 #[cfg(feature = "netcore2_1")]
-#[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore2_1")))]
+#[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore2_1")))]
 pub type hostfxr_get_available_sdks_result_fn =
     extern "C" fn(sdk_count: i32, sdk_dirs: *const *const char_t);
 
@@ -138,7 +138,7 @@ pub type hostfxr_handle = *const c_void;
 /// [`UNMANAGED_CALLERS_ONLY_METHOD`]: UNMANAGED_CALLERS_ONLY_METHOD
 /// [`UnmanagedCallersOnlyAttribute`]: https://docs.microsoft.com/en-us/dotnet/api/system.runtime.interopservices.unmanagedcallersonlyattribute
 #[cfg(feature = "netcore3_0")]
-#[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore3_0")))]
+#[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore3_0")))]
 pub type load_assembly_and_get_function_pointer_fn = unsafe extern "system" fn(
     assembly_path: *const char_t,
     type_name: *const char_t,
@@ -172,7 +172,7 @@ pub type load_assembly_and_get_function_pointer_fn = unsafe extern "system" fn(
 /// [`UNMANAGED_CALLERS_ONLY_METHOD`]: crate::UNMANAGED_CALLERS_ONLY_METHOD
 /// [`UnmanagedCallersOnlyAttribute`]: https://docs.microsoft.com/en-us/dotnet/api/system.runtime.interopservices.unmanagedcallersonlyattribute
 #[cfg(feature = "net5_0")]
-#[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "net5_0")))]
+#[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "net5_0")))]
 pub type get_function_pointer_fn = unsafe extern "system" fn(
     type_name: *const char_t,
     method_name: *const char_t,
@@ -184,7 +184,7 @@ pub type get_function_pointer_fn = unsafe extern "system" fn(
 
 /// Signature of delegate returned by [`load_assembly_and_get_function_pointer_fn`] when `delegate_type_name == null` (default)
 #[cfg(feature = "netcore3_0")]
-#[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore3_0")))]
+#[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore3_0")))]
 pub type component_entry_point_fn = unsafe extern "system" fn(*const c_void, size_t) -> i32;
 
 /// Signature of delegate returned by [`hostfxr_get_runtime_delegate`] for type [`hdt_load_assembly`].
@@ -206,7 +206,7 @@ pub type component_entry_point_fn = unsafe extern "system" fn(*const c_void, siz
 /// [`hostfxr_get_runtime_delegate`]: wrapper/struct.Hostfxr.html#method.hostfxr_get_runtime_delegate
 /// [`AssemblyLoadContext.LoadFromAssembly`]: https://learn.microsoft.com/en-us/dotnet/api/system.runtime.loader.assemblyloadcontext.loadfromassemblypath
 #[cfg(feature = "net8_0")]
-#[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "net8_0")))]
+#[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "net8_0")))]
 pub type load_assembly_fn = unsafe extern "system" fn(
     assembly_path: *const char_t,
     load_context: *const c_void,
@@ -236,7 +236,7 @@ pub type load_assembly_fn = unsafe extern "system" fn(
 /// [`AssemblyLoadContext`]: https://learn.microsoft.com/en-us/dotnet/api/system.runtime.loader.assemblyloadcontext
 /// [`AssemblyLoadContext.Resolving`]: https://learn.microsoft.com/en-us/dotnet/api/system.runtime.loader.assemblyloadcontext.resolving?view=net-7.0
 #[cfg(feature = "net8_0")]
-#[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "net8_0")))]
+#[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "net8_0")))]
 pub type load_assembly_bytes_fn = unsafe extern "system" fn(
     assembly_path: *const char_t,
     load_context: *const c_void,
@@ -347,7 +347,7 @@ derive_apis! {
         /// It will shutdown CoreCLR after the application executes.
         /// If the application is successfully executed, this value will return the exit code of the application. Otherwise, it will return an error code indicating the failure.
         #[cfg(feature = "netcore1_0")]
-        #[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore1_0")))]
+        #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore1_0")))]
         hostfxr_main: unsafe extern "C" fn(argc: i32, argv: *const *const char_t) -> i32,
 
         /// Determines the directory location of the SDK accounting for
@@ -388,7 +388,7 @@ derive_apis! {
         /// terminated. Otherwise, no data is written to the buffer.
         #[deprecated(note = "Use `hostfxr_resolve_sdk2` instead.")]
         #[cfg(feature = "netcore2_0")]
-        #[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore2_0")))]
+        #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore2_0")))]
         hostfxr_resolve_sdk: unsafe extern "C" fn(
             exe_dir: *const char_t,
             working_dir: *const char_t,
@@ -412,7 +412,7 @@ derive_apis! {
         /// It will shutdown CoreCLR after the application executes.
         /// If the application is successfully executed, this value will return the exit code of the application. Otherwise, it will return an error code indicating the failure.
         #[cfg(feature = "netcore2_1")]
-        #[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore2_1")))]
+        #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore2_1")))]
         hostfxr_main_startupinfo: unsafe extern "C" fn(
             argc: i32,
             argv: *const *const char_t,
@@ -451,7 +451,7 @@ derive_apis! {
         /// If `global.json` is used, result will be invoked with [`global_json_path`](crate::hostfxr_resolve_sdk2_result_key_t::global_json_path) key and the value will hold the path to `global.json`.
         /// If there was no `global.json` found, or the contents of `global.json` did not impact resolution (e.g. no version specified), then result will not be invoked with [`global_json_path`](crate::hostfxr_resolve_sdk2_result_key_t::global_json_path) key.
         #[cfg(feature = "netcore2_1")]
-        #[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore2_1")))]
+        #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore2_1")))]
         hostfxr_resolve_sdk2: unsafe extern "C" fn(
             exe_dir: *const char_t,
             working_dir: *const char_t,
@@ -466,7 +466,7 @@ derive_apis! {
         ///  * `result` - callback invoked to return the list of SDKs by their directory paths.
         ///             String array and its elements are valid only for the duration of the call.
         #[cfg(feature = "netcore2_1")]
-        #[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore2_1")))]
+        #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore2_1")))]
         hostfxr_get_available_sdks: unsafe extern "C" fn(
             exe_dir: *const char_t,
             result: hostfxr_get_available_sdks_result_fn,
@@ -487,7 +487,7 @@ derive_apis! {
         /// [`HostApiBufferTooSmall`]: coreclr_hosting_shared::StatusCode::HostApiBufferTooSmall
         /// [`PATH_LIST_SEPARATOR`]: crate::PATH_LIST_SEPARATOR
         #[cfg(feature = "netcore2_1")]
-        #[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore2_1")))]
+        #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore2_1")))]
         hostfxr_get_native_search_directories: unsafe extern "C" fn(
             argc: i32,
             argv: *const *const char_t,
@@ -520,7 +520,7 @@ derive_apis! {
         /// will be propagated to hostpolicy for the duration of the call. This means that errors from
         /// both hostfxr and hostpolicy will be reporter through the same error writer.
         #[cfg(feature = "netcore3_0")]
-        #[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore3_0")))]
+        #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore3_0")))]
         hostfxr_set_error_writer:
             unsafe extern "C" fn(error_writer: hostfxr_error_writer_fn) -> hostfxr_error_writer_fn,
 
@@ -554,7 +554,7 @@ derive_apis! {
         /// [`Success`]: coreclr_hosting_shared::StatusCode::Success
         /// [`HostInvalidState`]: coreclr_hosting_shared::StatusCode::HostInvalidState
         #[cfg(feature = "netcore3_0")]
-        #[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore3_0")))]
+        #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore3_0")))]
         hostfxr_initialize_for_dotnet_command_line: unsafe extern "C" fn(
             argc: i32,
             argv: *const *const char_t,
@@ -601,7 +601,7 @@ derive_apis! {
         /// [`Success_DifferentRuntimeProperties`]: coreclr_hosting_shared::StatusCode::Success_DifferentRuntimeProperties
         /// [`CoreHostIncompatibleConfig`]: coreclr_hosting_shared::StatusCode::CoreHostIncompatibleConfig
         #[cfg(feature = "netcore3_0")]
-        #[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore3_0")))]
+        #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore3_0")))]
         hostfxr_initialize_for_runtime_config: unsafe extern "C" fn(
             runtime_config_path: *const char_t,
             parameters: *const hostfxr_initialize_parameters,
@@ -634,7 +634,7 @@ derive_apis! {
         /// [`hostfxr_set_runtime_property_value`]: struct.HostfxrLib.html#method.hostfxr_set_runtime_property_value
         /// [`hostfxr_close`]: struct.HostfxrLib.html#method.hostfxr_close
         #[cfg(feature = "netcore3_0")]
-        #[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore3_0")))]
+        #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore3_0")))]
         hostfxr_get_runtime_property_value: unsafe extern "C" fn(
             host_context_handle: hostfxr_handle,
             name: *const char_t,
@@ -660,7 +660,7 @@ derive_apis! {
         /// If the property already exists in the host context, it will be overwritten. If value is [`null`](core::ptr::null()), the
         /// property will be removed.
         #[cfg(feature = "netcore3_0")]
-        #[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore3_0")))]
+        #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore3_0")))]
         hostfxr_set_runtime_property_value: unsafe extern "C" fn(
             host_context_handle: hostfxr_handle,
             name: *const char_t,
@@ -697,7 +697,7 @@ derive_apis! {
         /// [`hostfxr_set_runtime_property_value`]: struct.HostfxrLib.html#hostfxr_set_runtime_property_value
         /// [`hostfxr_close`]: struct.HostfxrLib.html#method.hostfxr_closee
         #[cfg(feature = "netcore3_0")]
-        #[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore3_0")))]
+        #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore3_0")))]
         hostfxr_get_runtime_properties: unsafe extern "C" fn(
             host_context_handle: hostfxr_handle,
             /*inout*/ count: *mut size_t,
@@ -722,7 +722,7 @@ derive_apis! {
         /// [`hostfxr_initialize_for_runtime_config`]: struct.HostfxrLib.html#method.hostfxr_initialize_for_runtime_config
         /// [`hostfxr_initialize_for_dotnet_command_line`]: struct.HostfxrLib.html#method.hostfxr_initialize_for_dotnet_command_line
         #[cfg(feature = "netcore3_0")]
-        #[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore3_0")))]
+        #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore3_0")))]
         hostfxr_run_app: unsafe extern "C" fn(host_context_handle: hostfxr_handle) -> i32,
 
         /// Gets a typed delegate from the currently loaded CoreCLR or from a newly created one.
@@ -751,7 +751,7 @@ derive_apis! {
         /// [`hostfxr_initialize_for_runtime_config`]: struct.HostfxrLib.html#method.hostfxr_initialize_for_runtime_config
         /// [`hostfxr_initialize_for_dotnet_command_line`]: struct.HostfxrLib.html#method.hostfxr_initialize_for_dotnet_command_line
         #[cfg(feature = "netcore3_0")]
-        #[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore3_0")))]
+        #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore3_0")))]
         hostfxr_get_runtime_delegate: unsafe extern "C" fn(
             host_context_handle: hostfxr_handle,
             r#type: hostfxr_delegate_type,
@@ -767,7 +767,7 @@ derive_apis! {
         /// # Return value:
         /// The error code result.
         #[cfg(feature = "netcore3_0")]
-        #[cfg_attr(all(feature = "doc-cfg", nightly), doc(cfg(feature = "netcore3_0")))]
+        #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore3_0")))]
         hostfxr_close: unsafe extern "C" fn(host_context_handle: hostfxr_handle) -> i32,
     }
 }
