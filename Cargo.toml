@@ -28,3 +28,7 @@ net7_0 = ["net6_0"]
 net8_0 = ["net7_0"]
 undocumented = []
 doc-cfg = []
+
+[package.metadata.docs.rs]
+features = ["latest", "doc-cfg"]
+no-default-features = true
