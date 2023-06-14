@@ -243,7 +243,10 @@ pub type load_assembly_fn = unsafe extern "system" fn(
 #[cfg(feature = "net8_0")]
 #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "net8_0")))]
 pub type load_assembly_bytes_fn = unsafe extern "system" fn(
-    assembly_path: *const char_t,
+    assembly_bytes: *const u8,
+    assembly_bytes_len: usize,
+    symbols_bytes: *const u8,
+    symbols_bytes_len: usize,
     load_context: *const c_void,
     reserved: *const c_void,
 ) -> i32;
