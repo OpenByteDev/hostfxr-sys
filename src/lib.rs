@@ -53,7 +53,7 @@ pub const PATH_LIST_SEPARATOR: char_t = b':' as char_t;
 #[cfg_attr(feature = "enum-map", derive(enum_map::Enum))]
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 #[repr(i32)]
-// Enum representing the type of runtime functionality requested with `hostfxr_get_runtime_delegate`.
+/// Enum representing the type of runtime functionality requested with `hostfxr_get_runtime_delegate`.
 pub enum hostfxr_delegate_type {
     hdt_com_activation = 0,
     /// IJW entry-point
@@ -276,7 +276,7 @@ pub struct hostfxr_initialize_parameters {
 }
 
 impl hostfxr_initialize_parameters {
-    /// Creates a new instance of [`hostfxr_initialize_parameters`] with the given `host_path`.
+    /// Creates a new instance with the given `host_path`.
     /// The `size` field is set accordingly to the size of the struct and `dotnet_root` to [`core::ptr::null()`].
     #[must_use]
     pub fn with_host_path(host_path: *const char_t) -> hostfxr_initialize_parameters {
@@ -286,7 +286,7 @@ impl hostfxr_initialize_parameters {
             dotnet_root: core::ptr::null(),
         }
     }
-    /// Creates a new instance of [`hostfxr_initialize_parameters`] with the given `dotnet_root`.
+    /// Creates a new instance with the given `dotnet_root`.
     /// The `size` field is set accordingly to the size of the struct and `host_path` to [`core::ptr::null()`].
     #[must_use]
     pub fn with_dotnet_root(dotnet_root: *const char_t) -> hostfxr_initialize_parameters {
