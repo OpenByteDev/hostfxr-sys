@@ -241,7 +241,6 @@ pub type load_assembly_fn = unsafe extern "system" fn(
 /// [`hdt_load_assembly_bytes`]: hostfxr_delegate_type::hdt_load_assembly_bytes
 /// [`hostfxr_get_runtime_delegate`]: wrapper/struct.Hostfxr.html#method.hostfxr_get_runtime_delegate
 /// [`AssemblyDependencyResolver`]: https://learn.microsoft.com/en-us/dotnet/api/system.runtime.loader.assemblydependencyresolver
-/// [`AssemblyLoadContext`]: https://learn.microsoft.com/en-us/dotnet/api/system.runtime.loader.assemblyloadcontext
 /// [`AssemblyLoadContext.Resolving`]: https://learn.microsoft.com/en-us/dotnet/api/system.runtime.loader.assemblyloadcontext.resolving?view=net-7.0
 #[cfg(feature = "net8_0")]
 #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "net8_0")))]
