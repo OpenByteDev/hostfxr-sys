@@ -197,7 +197,7 @@ pub type component_entry_point_fn = unsafe extern "system" fn(*const c_void, siz
 /// Signature of delegate returned by [`hostfxr_get_runtime_delegate`] for type [`hdt_load_assembly`].
 ///
 /// Calling this function will load the specified assembly in the default load context.
-/// It uses AssemblyDependencyResolver to register additional dependency resolution for the load context.
+/// It uses [`AssemblyDependencyResolver`] to register additional dependency resolution for the load context.
 ///
 /// # Arguments
 ///  * `assembly_path`:
@@ -211,6 +211,7 @@ pub type component_entry_point_fn = unsafe extern "system" fn(*const c_void, siz
 ///
 /// [`hdt_load_assembly`]: hostfxr_delegate_type::hdt_load_assembly
 /// [`hostfxr_get_runtime_delegate`]: wrapper/struct.Hostfxr.html#method.hostfxr_get_runtime_delegate
+/// [`AssemblyDependencyResolver`]: https://learn.microsoft.com/en-us/dotnet/api/system.runtime.loader.assemblydependencyresolver
 /// [`AssemblyLoadContext.LoadFromAssembly`]: https://learn.microsoft.com/en-us/dotnet/api/system.runtime.loader.assemblyloadcontext.loadfromassemblypath
 #[cfg(feature = "net8_0")]
 #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "net8_0")))]
