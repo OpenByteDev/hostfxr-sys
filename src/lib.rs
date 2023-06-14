@@ -51,6 +51,7 @@ pub const PATH_LIST_SEPARATOR: char_t = b':' as char_t;
 #[cfg(feature = "netcore3_0")]
 #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore3_0")))]
 #[cfg_attr(feature = "enum-map", derive(enum_map::Enum))]
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
 #[repr(i32)]
 // Enum representing the type of runtime functionality requested with `hostfxr_get_runtime_delegate`.
 pub enum hostfxr_delegate_type {
@@ -99,6 +100,7 @@ pub mod hostfxr_resolve_sdk2_flags_t {
 #[cfg(feature = "netcore2_1")]
 #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore2_1")))]
 #[cfg_attr(feature = "enum-map", derive(enum_map::Enum))]
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
 #[repr(i32)]
 pub enum hostfxr_resolve_sdk2_result_key_t {
     resolved_sdk_dir = 0,
@@ -252,6 +254,7 @@ pub type load_assembly_bytes_fn = unsafe extern "system" fn(
 ) -> i32;
 
 /// A structure that stores parameters which are common to all forms of initialization.
+#[derive(Clone, Copy, Debug)]
 #[repr(C)]
 pub struct hostfxr_initialize_parameters {
     /// The size of the structure.
