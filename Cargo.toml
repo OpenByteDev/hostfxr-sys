@@ -16,7 +16,7 @@ coreclr-hosting-shared = "0.1"
 dlopen2 = "0.5"
 
 [features]
-default = ["net6_0"]
+default = ["net7_0"]
 latest = ["net8_0"]
 netcore1_0 = []
 netcore2_0 = ["netcore1_0"]
