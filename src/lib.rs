@@ -279,9 +279,9 @@ impl hostfxr_initialize_parameters {
     /// Creates a new instance with the given `host_path`.
     /// The `size` field is set accordingly to the size of the struct and `dotnet_root` to [`core::ptr::null()`].
     #[must_use]
-    pub fn with_host_path(host_path: *const char_t) -> hostfxr_initialize_parameters {
-        hostfxr_initialize_parameters {
-            size: mem::size_of::<hostfxr_initialize_parameters>(),
+    pub fn with_host_path(host_path: *const char_t) -> Self {
+        Self {
+            size: mem::size_of::<Self>(),
             host_path,
             dotnet_root: core::ptr::null(),
         }
@@ -289,9 +289,9 @@ impl hostfxr_initialize_parameters {
     /// Creates a new instance with the given `dotnet_root`.
     /// The `size` field is set accordingly to the size of the struct and `host_path` to [`core::ptr::null()`].
     #[must_use]
-    pub fn with_dotnet_root(dotnet_root: *const char_t) -> hostfxr_initialize_parameters {
-        hostfxr_initialize_parameters {
-            size: mem::size_of::<hostfxr_initialize_parameters>(),
+    pub fn with_dotnet_root(dotnet_root: *const char_t) -> Self {
+        Self {
+            size: mem::size_of::<Self>(),
             host_path: core::ptr::null(),
             dotnet_root,
         }
