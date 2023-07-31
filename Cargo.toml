@@ -13,8 +13,8 @@ keywords = ["hostfxr", "dotnet", "bindings", "coreclr"]
 
 [dependencies]
 coreclr-hosting-shared = "0.1"
-dlopen2 = "0.5"
-enum-map = { version = "2.5", optional = true, default-features = false }
+dlopen2 = "0.6"
+enum-map = { version = "2.6", optional = true, default-features = false }
 
 [features]
 default = ["net7_0"]
