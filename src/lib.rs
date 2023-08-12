@@ -431,15 +431,12 @@ derive_apis! {
         ///      It is also valid to pass nullptr or empty, in which case
         ///      multi-level lookup can still search other locations if
         ///      it has not been disabled by the user's environment.
-        ///
         ///  * `working_dir`
         ///      The directory where the search for `global.json` (which can
         ///      control the resolved SDK version) starts and proceeds
         ///      upwards.
-        ///
         ///  * `buffer`
         ///      The buffer where the resolved SDK path will be written.
-        ///
         ///  * `buffer_size`
         ///      The size of the buffer argument in [`char_t`] units.
         ///
@@ -505,11 +502,11 @@ derive_apis! {
         /// Determine the directory location of the SDK, accounting for `global.json` and multi-level lookup policy.
         ///
         /// # Arguments
-        ///  * `exe_dir` - main directory where SDKs are located in `sdk\[version]` sub-folders.
-        ///  * `working_dir` - directory where the search for `global.json` will start and proceed upwards
-        ///  * `flags` - flags that influence resolution:
+        ///  * `exe_dir` main directory where SDKs are located in `sdk\[version]` sub-folders.
+        ///  * `working_dir` directory where the search for `global.json` will start and proceed upwards
+        ///  * `flags` flags that influence resolution:
         ///         `disallow_prerelease` - do not allow resolution to return a pre-release SDK version unless a pre-release version was specified via `global.json`
-        ///  * `result` - callback invoked to return resolved values.
+        ///  * `result` callback invoked to return resolved values.
         ///         The callback may be invoked more than once. Strings passed to the callback are valid only for the duration of the call.
         ///
         /// If resolution succeeds, result will be invoked with [`resolved_sdk_dir`](crate::hostfxr_resolve_sdk2_result_key_t::resolved_sdk_dir) key and the value will hold the path to the resolved SDK directory.
@@ -542,10 +539,10 @@ derive_apis! {
         /// Get the native search directories of the runtime based upon the specified app.
         ///
         /// # Arguments
-        ///  * `argc`,`argv` - command-line arguments
-        ///  * `buffer` - buffer to populate with the native search directories (including a null terminator).
-        ///  * `buffer_size` - size of `buffer` in [`char_t`] units
-        ///  * `required_buffer_size` - if buffer is too small, this will be populated with the minimum required buffer size (including a null terminator). Otherwise, this will be set to 0.
+        ///  * `argc`,`argv` command-line arguments
+        ///  * `buffer` buffer to populate with the native search directories (including a null terminator).
+        ///  * `buffer_size` size of `buffer` in [`char_t`] units
+        ///  * `required_buffer_size` if buffer is too small, this will be populated with the minimum required buffer size (including a null terminator). Otherwise, this will be set to 0.
         ///
         /// The native search directories will be a list of paths separated by [`PATH_LIST_SEPARATOR`], which is a semicolon (;) on Windows and a colon (:) otherwise.
         ///
@@ -566,7 +563,7 @@ derive_apis! {
         /// Sets a callback which is to be used to write errors to.
         ///
         /// # Arguments
-        ///  * `error_writer`:
+        ///  * `error_writer`
         ///     A callback function which will be invoked every time an error is to be reported.
         ///     Or [`null`](core::ptr::null()) to unregister previously registered callback and return to the default behavior.
         ///
@@ -594,13 +591,13 @@ derive_apis! {
         /// Initializes the hosting components for a dotnet command line running an application
         ///
         /// # Arguments
-        ///  * `argc`:
+        ///  * `argc`
         ///     Number of argv arguments
-        ///  * `argv`:
+        ///  * `argv`
         ///     Command-line arguments for running an application (as if through the dotnet executable).
-        ///  * `parameters`:
+        ///  * `parameters`
         ///     Optional. Additional parameters for initialization
-        ///  * `host_context_handle`:
+        ///  * `host_context_handle`
         ///     On success, this will be populated with an opaque value representing the initialized host context
         ///
         /// # Return value
@@ -632,11 +629,11 @@ derive_apis! {
         /// Initializes the hosting components using a `.runtimeconfig.json` file
         ///
         /// # Arguments
-        ///  * `runtime_config_path`:
+        ///  * `runtime_config_path`
         ///     Path to the `.runtimeconfig.json` file
-        ///  * `parameters`:
+        ///  * `parameters`
         ///     Optional. Additional parameters for initialization
-        ///  * `host_context_handle`:
+        ///  * `host_context_handle`
         ///     On success, this will be populated with an opaque value representing the initialized host context
         ///
         /// # Return value
@@ -678,11 +675,11 @@ derive_apis! {
         /// Gets the runtime property value for an initialized host context
         ///
         /// # Arguments
-        ///  * `host_context_handle`:
+        ///  * `host_context_handle`
         ///     Handle to the initialized host context
-        ///  * `name`:
+        ///  * `name`
         ///     Runtime property name
-        ///  * `value`:
+        ///  * `value`
         ///     Out parameter. Pointer to a buffer with the property value.
         ///
         /// # Return value
@@ -711,11 +708,11 @@ derive_apis! {
         /// Sets the value of a runtime property for an initialized host context
         ///
         /// # Arguments
-        ///  * `host_context_handle`:
+        ///  * `host_context_handle`
         ///     Handle to the initialized host context
-        ///  * `name`:
+        ///  * `name`
         ///     Runtime property name
-        ///  * `value`:
+        ///  * `value`
         ///     Value to set
         ///
         /// # Return value
@@ -737,15 +734,15 @@ derive_apis! {
         /// Gets all the runtime properties for an initialized host context
         ///
         /// # Arguments
-        ///  * `host_context_handle`:
+        ///  * `host_context_handle`
         ///     Handle to the initialized host context
-        ///  * `count`:
+        ///  * `count`
         ///     \[in\] Size of the keys and values buffers
         ///     \[out\] Number of properties returned (size of keys/values buffers used). If the input value is too
         ///             small or keys/values is [`null`](core::ptr::null()), this is populated with the number of available properties
-        ///  * `keys`:
+        ///  * `keys`
         ///     \[out\] Array of pointers to buffers with runtime property keys
-        ///  * `values`:
+        ///  * `values`
         ///     \[out\] Array of pointers to buffers with runtime property values
         ///
         /// # Return value
@@ -775,7 +772,7 @@ derive_apis! {
         /// Load CoreCLR and run the application for an initialized host context
         ///
         /// # Arguments
-        ///  * `host_context_handle`:
+        ///  * `host_context_handle`
         ///     Handle to the initialized host context
         ///
         /// # Return value
@@ -795,11 +792,11 @@ derive_apis! {
         /// Gets a typed delegate from the currently loaded CoreCLR or from a newly created one.
         ///
         /// # Arguments
-        ///  * `host_context_handle`:
+        ///  * `host_context_handle`
         ///     Handle to the initialized host context
-        ///  * `type`:
+        ///  * `type`
         ///     Type of runtime delegate requested
-        ///  * `delegate`:
+        ///  * `delegate`
         ///     An out parameter that will be assigned the delegate.
         ///
         /// # Return value
@@ -825,13 +822,13 @@ derive_apis! {
             /*out*/ delegate: *mut *const (),
         ) -> i32,
 
-        /// Closes an initialized host context
+        /// Closes an initialized host context.
         ///
         /// # Arguments
-        ///  * `host_context_handle`:
+        ///  * `host_context_handle`
         ///     Handle to the initialized host context
         ///
-        /// # Return value:
+        /// # Return value
         /// The error code result.
         #[cfg(feature = "netcore3_0")]
         #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore3_0")))]
