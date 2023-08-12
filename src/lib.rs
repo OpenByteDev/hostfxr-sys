@@ -119,6 +119,62 @@ pub type hostfxr_resolve_sdk2_result_fn =
 pub type hostfxr_get_available_sdks_result_fn =
     extern "C" fn(sdk_count: i32, sdk_dirs: *const *const char_t);
 
+/// Result callback signature for `hostfxr_get_dotnet_environment_info`.
+#[cfg(all(feature = "net6_0", feature = "undocumented"))]
+#[cfg_attr(
+    feature = "doc-cfg",
+    doc(cfg(all(feature = "net6_0", feature = "undocumented")))
+)]
+pub type hostfxr_get_dotnet_environment_info_result_fn =
+    unsafe extern "C" fn(info: *const hostfxr_dotnet_environment_info, result_context: *mut c_void);
+
+#[cfg(all(feature = "net6_0", feature = "undocumented"))]
+#[cfg_attr(
+    feature = "doc-cfg",
+    doc(cfg(all(feature = "net6_0", feature = "undocumented")))
+)]
+#[derive(Clone, Copy, Debug)]
+#[repr(C)]
+pub struct hostfxr_dotnet_environment_sdk_info {
+    pub size: size_t,
+    pub version: *const char_t,
+    pub path: *const char_t,
+}
+
+#[cfg(all(feature = "net6_0", feature = "undocumented"))]
+#[cfg_attr(
+    feature = "doc-cfg",
+    doc(cfg(all(feature = "net6_0", feature = "undocumented")))
+)]
+#[derive(Clone, Copy, Debug)]
+#[repr(C)]
+pub struct hostfxr_dotnet_environment_framework_info {
+    pub size: size_t,
+    pub name: *const char_t,
+    pub version: *const char_t,
+    pub path: *const char_t,
+}
+
+#[cfg(all(feature = "net6_0", feature = "undocumented"))]
+#[cfg_attr(
+    feature = "doc-cfg",
+    doc(cfg(all(feature = "net6_0", feature = "undocumented")))
+)]
+#[derive(Clone, Copy, Debug)]
+#[repr(C)]
+pub struct hostfxr_dotnet_environment_info {
+    pub size: size_t,
+
+    pub hostfxr_version: *const char_t,
+    pub hostfxr_commit_hash: *const char_t,
+
+    pub sdk_count: size_t,
+    pub sdks: *const hostfxr_dotnet_environment_sdk_info,
+
+    pub framework_count: size_t,
+    pub frameworks: *const hostfxr_dotnet_environment_framework_info,
+}
+
 /// Handle to a hostfxr context.
 pub type hostfxr_handle = *const c_void;
 
@@ -780,5 +836,40 @@ derive_apis! {
         #[cfg(feature = "netcore3_0")]
         #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore3_0")))]
         hostfxr_close: unsafe extern "C" fn(host_context_handle: hostfxr_handle) -> i32,
+
+        /// Returns available SDKs and frameworks.
+        ///
+        /// Resolves the existing SDKs and frameworks from a dotnet root directory (if
+        /// any), or the global default location. If multi-level lookup is enabled and
+        /// the dotnet root location is different than the global location, the SDKs and
+        /// frameworks will be enumerated from both locations.
+        ///
+        /// The SDKs are sorted in ascending order by version, multi-level lookup
+        /// locations are put before private ones.
+        ///
+        /// The frameworks are sorted in ascending order by name followed by version,
+        /// multi-level lookup locations are put before private ones.
+        ///
+        /// # Arguments
+        ///  * `dotnet_root`
+        ///      The path to a directory containing a dotnet executable.
+        ///  *  `reserved`
+        ///      Reserved for future parameters.
+        ///  *  `result`
+        ///      Callback invoke to return the list of SDKs and frameworks.
+        ///      Structs and their elements are valid for the duration of the call.
+        ///  * `result_context`
+        ///      Additional context passed to the result callback.
+        ///
+        /// # Return value
+        /// The error code result.
+        #[cfg(all(feature = "net6_0", feature = "undocumented"))]
+        #[cfg_attr(feature = "doc-cfg", doc(cfg(all(feature = "net6_0", feature = "undocumented"))))]
+        hostfxr_get_dotnet_environment_info: unsafe extern "C" fn(
+            dotnet_root: *const char_t,
+            reserved: *mut c_void,
+            result: hostfxr_get_dotnet_environment_info_result_fn,
+            result_context: *mut c_void
+        ) -> i32,
     }
 }
