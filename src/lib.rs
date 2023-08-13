@@ -386,6 +386,29 @@ macro_rules! derive_apis {
             }
         }
 
+        /// [`dlopen2::symbor`] abstraction for the hostfxr library, with all symbols marked as optional.
+        #[cfg(all(feature = "symbor", feature = "optional-apis"))]
+        #[cfg_attr(feature = "doc-cfg", doc(cfg(all(feature = "symbor", feature = "optional-apis"))))]
+        $visibility mod symbor_option {
+            #[allow(unused_imports)]
+            use super::*;
+            use dlopen2::symbor::{Symbol, SymBorApi};
+
+            /// [`dlopen2::symbor`] abstraction for the hostfxr library, with all symbols marked as optional.
+            $( #[$struct_attrs] )*
+            #[derive(SymBorApi)]
+            $visibility struct $name <'lib> {
+                // ensures that 'lib is used
+                #[cfg(not(feature = "netcore1_0"))]
+                _dummy: Option<Symbol<'lib, fn()>>,
+
+                $(
+                    $( #[$field_attrs] )*
+                    pub $field : Option<Symbol<'lib, $field_type>>
+                ),*
+            }
+        }
+
         /// [`dlopen2::wrapper`] abstraction for the hostfxr library.
         #[cfg(feature = "wrapper")]
         #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "wrapper")))]
@@ -401,6 +424,25 @@ macro_rules! derive_apis {
                 $(
                     $( #[$field_attrs] )*
                     $field : $field_type
+                ),*
+            }
+        }
+
+        /// [`dlopen2::wrapper`] abstraction for the hostfxr library, with all symbols marked as optional.
+        #[cfg(all(feature = "wrapper", feature = "optional-apis"))]
+        #[cfg_attr(feature = "doc-cfg", doc(cfg(all(feature = "wrapper", feature = "optional-apis"))))]
+        $visibility mod wrapper_option {
+            #[allow(unused_imports)]
+            use super::*;
+            use dlopen2::wrapper::WrapperApi;
+
+            /// [`dlopen2::wrapper`] abstraction for the hostfxr library, with all symbols marked as optional.
+            $( #[$struct_attrs] )*
+            #[derive(WrapperApi)]
+            $visibility struct $name {
+                $(
+                    $( #[$field_attrs] )*
+                    $field : Option<$field_type>
                 ),*
             }
         }
