@@ -364,6 +364,8 @@ macro_rules! derive_apis {
         )*
     }) => {
         /// [`dlopen2::symbor`] abstraction for the hostfxr library.
+        #[cfg(feature = "symbor")]
+        #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "symbor")))]
         $visibility mod symbor {
             #[allow(unused_imports)]
             use super::*;
@@ -373,7 +375,7 @@ macro_rules! derive_apis {
             $( #[$struct_attrs] )*
             #[derive(SymBorApi)]
             $visibility struct $name <'lib> {
-                // ensures that 'lib is used if not other
+                // ensures that 'lib is used
                 #[cfg(not(feature = "netcore1_0"))]
                 _dummy: Option<Symbol<'lib, fn()>>,
 
@@ -385,6 +387,8 @@ macro_rules! derive_apis {
         }
 
         /// [`dlopen2::wrapper`] abstraction for the hostfxr library.
+        #[cfg(feature = "wrapper")]
+        #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "wrapper")))]
         $visibility mod wrapper {
             #[allow(unused_imports)]
             use super::*;
