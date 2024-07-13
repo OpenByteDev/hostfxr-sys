@@ -534,7 +534,7 @@ derive_apis! {
         #[cfg(all(feature = "netcore2_1", feature = "undocumented"))]
         #[cfg_attr(
             feature = "doc-cfg",
-            doc(cfg(feature = "netcore2_1", feature = "undocumented"))
+            doc(cfg(all(feature = "netcore2_1", feature = "undocumented")))
         )]
         hostfxr_main_bundle_startupinfo: unsafe extern "C" fn(
             argc: i32,
