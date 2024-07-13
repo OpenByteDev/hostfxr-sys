@@ -20,6 +20,7 @@ enum-map = { version = "2.6", optional = true, default-features = false }
 default = ["net7_0", "symbor", "wrapper"]
 symbor = []
 wrapper = []
+optional-apis = []
 latest = ["net8_0"]
 netcore1_0 = []
 netcore2_0 = ["netcore1_0"]
