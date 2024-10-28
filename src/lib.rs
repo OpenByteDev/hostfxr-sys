@@ -248,7 +248,7 @@ pub type get_function_pointer_fn = unsafe extern "system" fn(
 /// Signature of delegate returned by [`load_assembly_and_get_function_pointer_fn`] when `delegate_type_name == null` (default)
 #[cfg(feature = "netcore3_0")]
 #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore3_0")))]
-pub type component_entry_point_fn = unsafe extern "system" fn(*const c_void, size_t) -> i32;
+pub type component_entry_point_fn = unsafe extern "system" fn(*const c_void, i32) -> i32;
 
 /// Signature of delegate returned by [`hostfxr_get_runtime_delegate`] for type [`hdt_load_assembly`].
 ///
