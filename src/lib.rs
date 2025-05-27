@@ -46,6 +46,7 @@ pub const UNMANAGED_CALLERS_ONLY_METHOD: *const char_t = usize::MAX as *const _;
 pub const PATH_LIST_SEPARATOR: char_t = b';' as char_t;
 /// Seperator char used to seperate a list of paths in a string.
 #[cfg(not(windows))]
+#[allow(clippy::cast_possible_wrap)]
 pub const PATH_LIST_SEPARATOR: char_t = b':' as char_t;
 
 #[cfg(feature = "netcore3_0")]
@@ -184,17 +185,17 @@ pub type hostfxr_handle = *const c_void;
 ///  * `assembly_path`:
 ///    Fully qualified path to assembly
 ///  * `type_name`:
-///     Assembly qualified type name
+///    Assembly qualified type name
 ///  * `method_name`:
-///     Public static method name compatible with delegateType
+///    Public static method name compatible with delegateType
 ///  * `delegate_type_name`:
-///     Assembly qualified delegate type name or [`null`](core::ptr::null()), or [`UNMANAGED_CALLERS_ONLY_METHOD`] if the method is marked with the [`UnmanagedCallersOnlyAttribute`].
+///    Assembly qualified delegate type name or [`null`](core::ptr::null()), or [`UNMANAGED_CALLERS_ONLY_METHOD`] if the method is marked with the [`UnmanagedCallersOnlyAttribute`].
 ///  * `load_context`:
-///     Extensibility parameter (currently unused and must be 0)
+///    Extensibility parameter (currently unused and must be 0)
 ///  * `reserved`:
-///     Extensibility parameter (currently unused and must be 0)
+///    Extensibility parameter (currently unused and must be 0)
 ///  * `delegate`:
-///     Pointer where to store the function pointer result
+///    Pointer where to store the function pointer result
 ///
 /// [`hostfxr_get_runtime_delegate`]: wrapper/struct.Hostfxr.html#method.hostfxr_get_runtime_delegate
 /// [`hdt_load_assembly_and_get_function_pointer`]: hostfxr_delegate_type::`hdt_load_assembly_and_get_function_pointer
@@ -218,17 +219,17 @@ pub type load_assembly_and_get_function_pointer_fn = unsafe extern "system" fn(
 ///
 /// # Arguments
 ///  * `type_name`:
-///     Assembly qualified type name
+///    Assembly qualified type name
 ///  * `method_name`:
-///     Public static method name compatible with delegateType
+///    Public static method name compatible with delegateType
 ///  * `delegate_type_name`:
-///     Assembly qualified delegate type name or [`null`](core::ptr::null()), or [`UNMANAGED_CALLERS_ONLY_METHOD`] if the method is marked with the [`UnmanagedCallersOnlyAttribute`].
+///    Assembly qualified delegate type name or [`null`](core::ptr::null()), or [`UNMANAGED_CALLERS_ONLY_METHOD`] if the method is marked with the [`UnmanagedCallersOnlyAttribute`].
 ///  * `load_context`:
-///     Extensibility parameter (currently unused and must be 0)
+///    Extensibility parameter (currently unused and must be 0)
 ///  * `reserved`:
-///     Extensibility parameter (currently unused and must be 0)
+///    Extensibility parameter (currently unused and must be 0)
 ///  * `delegate`:
-///     Pointer where to store the function pointer result
+///    Pointer where to store the function pointer result
 ///
 /// [`hdt_get_function_pointer`]: hostfxr_delegate_type::hdt_get_function_pointer
 /// [`hostfxr_get_runtime_delegate`]: wrapper/struct.Hostfxr.html#method.hostfxr_get_runtime_delegate
@@ -257,13 +258,13 @@ pub type component_entry_point_fn = unsafe extern "system" fn(*const c_void, i32
 ///
 /// # Arguments
 ///  * `assembly_path`:
-///     Path to the assembly to load - requirements match the assemblyPath parameter of [`AssemblyLoadContext.LoadFromAssemblyPath`].
-///     This path will also be used for dependency resolution via any `.deps.json` corresponding to the assembly.
+///    Path to the assembly to load - requirements match the assemblyPath parameter of [`AssemblyLoadContext.LoadFromAssemblyPath`].
+///    This path will also be used for dependency resolution via any `.deps.json` corresponding to the assembly.
 ///  * `load_context`:
-///     The load context that will be used to load the assembly.
-///     For .NET 8 this parameter must be [`null`](core::ptr::null()) and the API will only load the assembly in the default load context.
+///    The load context that will be used to load the assembly.
+///    For .NET 8 this parameter must be [`null`](core::ptr::null()) and the API will only load the assembly in the default load context.
 ///  * `reserved`:
-///     Parameter reserved for future extensibility, currently unused and must be [`null`](core::ptr::null()).
+///    Parameter reserved for future extensibility, currently unused and must be [`null`](core::ptr::null()).
 ///
 /// [`hdt_load_assembly`]: hostfxr_delegate_type::hdt_load_assembly
 /// [`hostfxr_get_runtime_delegate`]: wrapper/struct.Hostfxr.html#method.hostfxr_get_runtime_delegate
