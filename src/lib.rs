@@ -286,13 +286,13 @@ pub type load_assembly_fn = unsafe extern "system" fn(
 ///
 /// # Arguments
 ///  * `assembly_path`:
-///     Path to the assembly to load - requirements match the assemblyPath parameter of [`AssemblyLoadContext.LoadFromAssemblyPath`].
-///     This path will also be used for dependency resolution via any `.deps.json` corresponding to the assembly.
+///    Path to the assembly to load - requirements match the assemblyPath parameter of [`AssemblyLoadContext.LoadFromAssemblyPath`].
+///    This path will also be used for dependency resolution via any `.deps.json` corresponding to the assembly.
 ///  * `load_context`:
-///     The load context that will be used to load the assembly.
-///     For .NET 8 this parameter must be [`null`](core::ptr::null()) and the API will only load the assembly in the default load context.
+///    The load context that will be used to load the assembly.
+///    For .NET 8 this parameter must be [`null`](core::ptr::null()) and the API will only load the assembly in the default load context.
 ///  * `reserved`:
-///     Parameter reserved for future extensibility, currently unused and must be [`null`](core::ptr::null()).
+///    Parameter reserved for future extensibility, currently unused and must be [`null`](core::ptr::null()).
 ///
 /// [`hdt_load_assembly_bytes`]: hostfxr_delegate_type::hdt_load_assembly_bytes
 /// [`hostfxr_get_runtime_delegate`]: wrapper/struct.Hostfxr.html#method.hostfxr_get_runtime_delegate
@@ -450,6 +450,7 @@ macro_rules! derive_apis {
 }
 
 derive_apis! {
+    #[allow(clippy::struct_field_names)]
     pub struct Hostfxr {
         /// Run an application.
         ///
