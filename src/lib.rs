@@ -634,7 +634,7 @@ derive_apis! {
         #[cfg(feature = "netcore3_0")]
         #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore3_0")))]
         hostfxr_set_error_writer:
-            unsafe extern "C" fn(error_writer: hostfxr_error_writer_fn) -> hostfxr_error_writer_fn,
+            unsafe extern "C" fn(error_writer: Option<hostfxr_error_writer_fn>) -> Option<hostfxr_error_writer_fn>,
 
         /// Initializes the hosting components for a dotnet command line running an application
         ///
