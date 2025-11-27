@@ -93,19 +93,37 @@ pub type hostfxr_error_writer_fn = extern "C" fn(message: *const char_t);
 #[allow(non_upper_case_globals)]
 #[cfg(feature = "netcore2_1")]
 #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore2_1")))]
-pub mod hostfxr_resolve_sdk2_flags_t {
-    pub const none: i32 = 0x0;
-    pub const disallow_prerelease: i32 = 0x1;
+#[cfg_attr(feature = "enum-map", derive(enum_map::Enum))]
+#[repr(i32)]
+#[non_exhaustive]
+pub enum hostfxr_resolve_sdk2_flags_t {
+    none = 0x0,
+    disallow_prerelease = 0x1,
 }
 
+/// Possible keys for values passed to the callback in `hostfxr_resolve_sdk2`.
 #[cfg(feature = "netcore2_1")]
 #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore2_1")))]
 #[cfg_attr(feature = "enum-map", derive(enum_map::Enum))]
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 #[repr(i32)]
+#[non_exhaustive]
 pub enum hostfxr_resolve_sdk2_result_key_t {
     resolved_sdk_dir = 0,
     global_json_path = 1,
+    requested_version = 2,
+    global_json_state = 3,
+}
+
+/// Possible values for value in `hostfxr_resolve_sdk2_result_fn` when key is `global_json_state`.
+#[cfg(feature = "netcore2_1")]
+#[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "netcore2_1")))]
+pub mod hostfxr_resolve_sdk2_global_json_state {
+    // from https://github.com/dotnet/runtime/blob/59a29ee6827ba65477dc8b06132697258ef9c58f/src/native/corehost/fxr/hostfxr.cpp#L185
+    pub const NOT_FOUND: &str = "not_found";
+    pub const NOT_VALID: &str = "valid";
+    pub const INVALID_JSON: &str = "invalid_json";
+    pub const INVALID_DATA: &str = "invalid_data";
 }
 
 /// Result callback signature for `hostfxr_resolve_sdk2`.
@@ -567,7 +585,7 @@ derive_apis! {
         hostfxr_resolve_sdk2: unsafe extern "C" fn(
             exe_dir: *const char_t,
             working_dir: *const char_t,
-            flags: i32,
+            flags: hostfxr_resolve_sdk2_flags_t,
             result: hostfxr_resolve_sdk2_result_fn,
         ) -> i32,
 
