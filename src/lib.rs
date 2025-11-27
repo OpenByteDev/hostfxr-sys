@@ -54,6 +54,7 @@ pub const PATH_LIST_SEPARATOR: char_t = b':' as char_t;
 #[cfg_attr(feature = "enum-map", derive(enum_map::Enum))]
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 #[repr(i32)]
+#[non_exhaustive]
 /// Enum representing the type of runtime functionality requested with `hostfxr_get_runtime_delegate`.
 pub enum hostfxr_delegate_type {
     hdt_com_activation = 0,
