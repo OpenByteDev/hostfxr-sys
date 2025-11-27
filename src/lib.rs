@@ -122,7 +122,7 @@ pub enum hostfxr_resolve_sdk2_result_key_t {
 pub mod hostfxr_resolve_sdk2_global_json_state {
     // from https://github.com/dotnet/runtime/blob/59a29ee6827ba65477dc8b06132697258ef9c58f/src/native/corehost/fxr/hostfxr.cpp#L185
     pub const NOT_FOUND: &str = "not_found";
-    pub const NOT_VALID: &str = "valid";
+    pub const VALID: &str = "valid";
     pub const INVALID_JSON: &str = "invalid_json";
     pub const INVALID_DATA: &str = "invalid_data";
 }
