@@ -288,7 +288,7 @@ pub type component_entry_point_fn = unsafe extern "system" fn(*const c_void, i32
 /// [`hdt_load_assembly`]: hostfxr_delegate_type::hdt_load_assembly
 /// [`hostfxr_get_runtime_delegate`]: wrapper/struct.Hostfxr.html#method.hostfxr_get_runtime_delegate
 /// [`AssemblyDependencyResolver`]: https://learn.microsoft.com/en-us/dotnet/api/system.runtime.loader.assemblydependencyresolver
-/// [`AssemblyLoadContext.LoadFromAssembly`]: https://learn.microsoft.com/en-us/dotnet/api/system.runtime.loader.assemblyloadcontext.loadfromassemblypath
+/// [`AssemblyLoadContext.LoadFromAssemblyPath`]: https://learn.microsoft.com/en-us/dotnet/api/system.runtime.loader.assemblyloadcontext.loadfromassemblypath
 #[cfg(feature = "net8_0")]
 #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "net8_0")))]
 pub type load_assembly_fn = unsafe extern "system" fn(
@@ -318,6 +318,7 @@ pub type load_assembly_fn = unsafe extern "system" fn(
 /// [`hostfxr_get_runtime_delegate`]: wrapper/struct.Hostfxr.html#method.hostfxr_get_runtime_delegate
 /// [`AssemblyDependencyResolver`]: https://learn.microsoft.com/en-us/dotnet/api/system.runtime.loader.assemblydependencyresolver
 /// [`AssemblyLoadContext.Resolving`]: https://learn.microsoft.com/en-us/dotnet/api/system.runtime.loader.assemblyloadcontext.resolving?view=net-7.0
+/// [`AssemblyLoadContext.LoadFromAssemblyPath`]: https://learn.microsoft.com/en-us/dotnet/api/system.runtime.loader.assemblyloadcontext.loadfromassemblypath
 #[cfg(feature = "net8_0")]
 #[cfg_attr(feature = "doc-cfg", doc(cfg(feature = "net8_0")))]
 pub type load_assembly_bytes_fn = unsafe extern "system" fn(
