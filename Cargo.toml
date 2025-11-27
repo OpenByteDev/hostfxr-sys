@@ -17,7 +17,7 @@ dlopen2 = "0.8"
 enum-map = { version = "2.7", optional = true, default-features = false }
 
 [features]
-default = ["net8_0", "symbor", "wrapper"]
+default = ["net10_0", "symbor", "wrapper"]
 symbor = []
 wrapper = []
 optional-apis = []
